@@ -3,606 +3,1114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zoho Analytics - Business Intelligence Platform</title>
+    <title>Zoho Analytics - Interactive Data Visualization</title>
     <style>
       body {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: #333;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        min-height: 100%;
         overflow-x: hidden;
+        position: relative;
       }
 
-      * {
-        box-sizing: border-box;
+      html {
+        height: 100%;
       }
 
-      /* Header Styles */
-      header {
-        background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
-        color: white;
-        padding: 1rem 0;
+      /* Animated Background */
+      .animated-bg {
         position: fixed;
-        width: 100%;
         top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: linear-gradient(
+          45deg,
+          #ff6b6b,
+          #4ecdc4,
+          #45b7d1,
+          #96ceb4,
+          #ffeaa7,
+          #dda0dd
+        );
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
       }
 
-      nav {
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Header */
+      .header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        padding: 1rem 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
-        padding: 0 2rem;
       }
 
       .logo {
-        display: flex;
-        align-items: center;
-        font-size: 1.8rem;
+        font-size: 2rem;
         font-weight: bold;
-        text-decoration: none;
-        color: white;
-      }
-
-      .logo svg {
-        margin-right: 0.5rem;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       }
 
       .nav-links {
         display: flex;
+        gap: 2.5rem;
         list-style: none;
         margin: 0;
         padding: 0;
-        gap: 2rem;
       }
 
       .nav-links a {
-        color: white;
         text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        padding: 0.5rem 1rem;
-        border-radius: 25px;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 600;
+        transition: all 0.3s;
+        position: relative;
+        padding: 0.5rem 0;
       }
 
-      .nav-links a:hover,
-      .nav-links a.active {
-        background: rgba(255, 255, 255, 0.2);
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        transition: width 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: white;
         transform: translateY(-2px);
       }
 
-      .mobile-menu {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
+      .nav-links a:hover::after {
+        width: 100%;
       }
 
-      .mobile-menu span {
-        width: 25px;
-        height: 3px;
-        background: white;
-        margin: 3px 0;
-        transition: 0.3s;
+      .cta-button {
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+        background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
       }
 
       /* Hero Section */
       .hero {
-        background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
-        color: white;
-        padding: 120px 0 80px;
         text-align: center;
+        padding: 6rem 2rem;
+        position: relative;
+        z-index: 10;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        background: linear-gradient(45deg, #fff, #f0f8ff, #e6f3ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease-out;
+        font-weight: 800;
+      }
+
+      .hero-subtitle {
+        font-size: 1.5rem;
+        color: rgba(255, 255, 255, 0.95);
+        margin-bottom: 3rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        animation: fadeInUp 1s ease-out 0.2s both;
+        font-weight: 300;
+        line-height: 1.6;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto 3rem auto;
+        animation: fadeInUp 1s ease-out 0.4s both;
+      }
+
+      .hero-stat {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s;
+      }
+
+      .hero-stat:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .stat-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      /* Analytics Dashboard Section */
+      .analytics-section {
+        padding: 0;
+        position: relative;
+        z-index: 10;
+        background: linear-gradient(
+          135deg,
+          #1e3a8a 0%,
+          #3b82f6 50%,
+          #1d4ed8 100%
+        );
+        min-height: 100vh;
+        overflow: hidden;
+        width: 100%;
+        margin: 0;
+      }
+
+      .analytics-container {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .section-title {
+        position: absolute;
+        top: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 3rem;
+        color: white;
+        margin: 0;
+        font-weight: 700;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        z-index: 20;
+      }
+
+      .section-subtitle {
+        position: absolute;
+        top: 6rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        text-align: center;
+        z-index: 20;
+      }
+
+      /* Dashboard Image Container */
+      .dashboard-image-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 15;
+        width: 800px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        overflow: hidden;
+      }
+
+      .dashboard-image {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dashboard-header {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        color: white;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .dashboard-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .dashboard-tabs {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .tab {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 500;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .tab.active {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .dashboard-content {
+        flex: 1;
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .dashboard-metric {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid var(--metric-color);
+      }
+
+      .dashboard-metric:nth-child(1) {
+        --metric-color: #ef4444;
+      }
+      .dashboard-metric:nth-child(2) {
+        --metric-color: #10b981;
+      }
+      .dashboard-metric:nth-child(3) {
+        --metric-color: #f59e0b;
+      }
+      .dashboard-metric:nth-child(4) {
+        --metric-color: #8b5cf6;
+      }
+
+      .metric-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+      }
+
+      .metric-label {
+        color: #6b7280;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .metric-change {
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .metric-change.positive {
+        color: #10b981;
+      }
+      .metric-change.negative {
+        color: #ef4444;
+      }
+
+      /* Scrolling Cards */
+      .scrolling-cards-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 5;
+      }
+
+      .scrolling-row {
+        position: absolute;
+        display: flex;
+        gap: 2rem;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      .scrolling-row.left-to-right {
+        top: 15%;
+        animation: scrollLeftToRight 30s linear infinite;
+      }
+
+      .scrolling-row.right-to-left {
+        top: 35%;
+        animation: scrollRightToLeft 25s linear infinite;
+      }
+
+      .scrolling-row.left-to-right-2 {
+        top: 55%;
+        animation: scrollLeftToRight 35s linear infinite;
+      }
+
+      .scrolling-row.right-to-left-2 {
+        top: 75%;
+        animation: scrollRightToLeft 28s linear infinite;
+      }
+
+      @keyframes scrollLeftToRight {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100vw);
+        }
+      }
+
+      @keyframes scrollRightToLeft {
+        0% {
+          transform: translateX(100vw);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      .scroll-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 1.5rem;
+        min-width: 250px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        opacity: 0.7;
+        transition: opacity 0.3s;
+        flex-shrink: 0;
+      }
+
+      .scroll-card:hover {
+        opacity: 0.9;
+      }
+
+      .scroll-card-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .scroll-card-title {
+        color: white;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .scroll-card-value {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .scroll-card-change {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+      }
+
+      /* Products Table */
+      .products-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .search-box {
+        display: flex;
+        align-items: center;
+        background: #f8f9fa;
+        border-radius: 25px;
+        padding: 0.5rem 1rem;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s;
+      }
+
+      .search-box:focus-within {
+        border-color: #ff6b6b;
+        box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+      }
+
+      .search-box input {
+        border: none;
+        background: transparent;
+        outline: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+        width: 250px;
+      }
+
+      .products-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .products-table th,
+      .products-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .products-table th {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        font-weight: 600;
+        color: #333;
+      }
+
+      .products-table tr:hover {
+        background: rgba(255, 107, 107, 0.05);
+      }
+
+      .rating {
+        color: #ffd700;
+      }
+
+      .growth-positive {
+        color: #27ae60;
+        font-weight: 600;
+      }
+
+      .growth-negative {
+        color: #e74c3c;
+        font-weight: 600;
+      }
+
+      /* Floating Objects */
+      .floating-objects {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .floating-object {
+        position: absolute;
+        font-size: 2rem;
+        opacity: 0.7;
+        animation: floatAround 8s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      .floating-object:nth-child(1) {
+        top: 10%;
+        left: 5%;
+        animation-delay: 0s;
+        color: #ff6b6b;
+      }
+
+      .floating-object:nth-child(2) {
+        top: 20%;
+        right: 10%;
+        animation-delay: 1s;
+        color: #4ecdc4;
+      }
+
+      .floating-object:nth-child(3) {
+        top: 60%;
+        left: 15%;
+        animation-delay: 2s;
+        color: #45b7d1;
+      }
+
+      .floating-object:nth-child(4) {
+        top: 70%;
+        right: 20%;
+        animation-delay: 3s;
+        color: #96ceb4;
+      }
+
+      .floating-object:nth-child(5) {
+        top: 40%;
+        left: 50%;
+        animation-delay: 4s;
+        color: #ffeaa7;
+      }
+
+      .floating-object:nth-child(6) {
+        top: 80%;
+        right: 40%;
+        animation-delay: 5s;
+        color: #dda0dd;
+      }
+
+      .floating-object:nth-child(7) {
+        top: 30%;
+        left: 80%;
+        animation-delay: 6s;
+        color: #ff6b6b;
+      }
+
+      .floating-object:nth-child(8) {
+        top: 50%;
+        right: 60%;
+        animation-delay: 7s;
+        color: #4ecdc4;
+      }
+
+      /* Particle Animation */
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        animation: particleFloat 6s linear infinite;
+      }
+
+      .particle:nth-child(odd) {
+        animation-duration: 8s;
+        background: rgba(255, 107, 107, 0.6);
+      }
+
+      .particle:nth-child(even) {
+        animation-duration: 10s;
+        background: rgba(78, 205, 196, 0.6);
+      }
+
+      /* Features Section */
+      .features-section {
+        padding: 6rem 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+      }
+
+      .features-container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
         position: relative;
         overflow: hidden;
       }
 
-      .hero::before {
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(
+          45deg,
+          var(--feature-color),
+          var(--feature-color-light)
+        );
+      }
+
+      .feature-card:nth-child(1) {
+        --feature-color: #ff6b6b;
+        --feature-color-light: #ff8e8e;
+      }
+      .feature-card:nth-child(2) {
+        --feature-color: #4ecdc4;
+        --feature-color-light: #7ed6cc;
+      }
+      .feature-card:nth-child(3) {
+        --feature-color: #45b7d1;
+        --feature-color-light: #6bc5d8;
+      }
+      .feature-card:nth-child(4) {
+        --feature-color: #96ceb4;
+        --feature-color-light: #aad6c1;
+      }
+      .feature-card:nth-child(5) {
+        --feature-color: #ffeaa7;
+        --feature-color-light: #ffefbb;
+      }
+      .feature-card:nth-child(6) {
+        --feature-color: #dda0dd;
+        --feature-color-light: #e6b3e6;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(
+          135deg,
+          var(--feature-color),
+          var(--feature-color-light)
+        );
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      .feature-description {
+        color: #666;
+        line-height: 1.6;
+        font-size: 1rem;
+      }
+
+      .dashboard-mockup {
+        width: 100%;
+        height: 600px;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Dashboard Content */
+      .dashboard-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem 2.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .dashboard-header::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
         opacity: 0.3;
       }
 
-      .hero-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
+      .dashboard-title {
+        font-size: 1.8rem;
+        font-weight: bold;
         position: relative;
-        z-index: 2;
+        z-index: 1;
       }
 
-      .hero h1 {
-        font-size: 3.5rem;
-        margin-bottom: 1rem;
-        animation: fadeInUp 1s ease;
-      }
-
-      .hero p {
-        font-size: 1.3rem;
-        margin-bottom: 2rem;
-        opacity: 0.9;
-        animation: fadeInUp 1s ease 0.2s both;
-      }
-
-      .cta-buttons {
+      .dashboard-user {
         display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        animation: fadeInUp 1s ease 0.4s both;
-      }
-
-      .btn {
-        padding: 1rem 2rem;
-        border: none;
-        border-radius: 50px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-block;
-      }
-
-      .btn-primary {
-        background: #ff6b6b;
-        color: white;
-      }
-
-      .btn-primary:hover {
-        background: #ff5252;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-      }
-
-      .btn-secondary {
-        background: transparent;
-        color: white;
-        border: 2px solid white;
-      }
-
-      .btn-secondary:hover {
-        background: white;
-        color: #e91e63;
-        transform: translateY(-3px);
-      }
-
-      /* Interactive Dashboard */
-      .dashboard {
-        padding: 80px 0;
-        background: #f8f9fa;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
-
-      .section-title {
-        text-align: center;
-        margin-bottom: 3rem;
-      }
-
-      .section-title h2 {
-        font-size: 2.5rem;
-        color: #333;
-        margin-bottom: 1rem;
-      }
-
-      .section-title p {
-        font-size: 1.2rem;
-        color: #666;
-      }
-
-      .dashboard-controls {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        margin-bottom: 3rem;
-        flex-wrap: wrap;
-      }
-
-      .control-btn {
-        padding: 0.75rem 1.5rem;
-        border: 2px solid #e91e63;
-        background: transparent;
-        color: #e91e63;
-        border-radius: 25px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 600;
-      }
-
-      .control-btn.active,
-      .control-btn:hover {
-        background: #e91e63;
-        color: white;
-        transform: translateY(-2px);
-      }
-
-      .analytics-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 2rem;
-        margin-bottom: 3rem;
-      }
-
-      .chart-container {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .chart-header {
-        display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin-bottom: 2rem;
-      }
-
-      .chart-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #333;
-      }
-
-      .chart-value {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #e91e63;
-      }
-
-      /* Interactive Line Chart */
-      .line-chart {
-        height: 300px;
+        gap: 1rem;
         position: relative;
-        margin: 2rem 0;
+        z-index: 1;
       }
 
-      .chart-line {
-        position: absolute;
-        bottom: 50px;
-        left: 50px;
-        right: 50px;
-        height: 200px;
-        background: linear-gradient(
-          45deg,
-          transparent 49%,
-          #e91e63 49%,
-          #e91e63 51%,
-          transparent 51%
-        );
-        background-size: 20px 20px;
-        border-radius: 5px;
-        animation: drawLine 2s ease-in-out;
-      }
-
-      .chart-points {
-        position: absolute;
-        bottom: 50px;
-        left: 50px;
-        right: 50px;
-        height: 200px;
-      }
-
-      .chart-point {
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        background: #e91e63;
-        border: 3px solid white;
+      .user-avatar {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a24);
         border-radius: 50%;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 10px rgba(233, 30, 99, 0.3);
-      }
-
-      .chart-point:hover {
-        transform: scale(1.5);
-        box-shadow: 0 5px 20px rgba(233, 30, 99, 0.5);
-      }
-
-      .chart-point::after {
-        content: attr(data-value);
-        position: absolute;
-        top: -40px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #333;
-        color: white;
-        padding: 0.25rem 0.5rem;
-        border-radius: 5px;
-        font-size: 0.8rem;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        white-space: nowrap;
-      }
-
-      .chart-point:hover::after {
-        opacity: 1;
-      }
-
-      /* Donut Chart */
-      .donut-chart {
-        width: 200px;
-        height: 200px;
-        margin: 2rem auto;
-        position: relative;
-      }
-
-      .donut-segment {
-        fill: none;
-        stroke-width: 30;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .donut-segment:hover {
-        stroke-width: 35;
-        filter: brightness(1.1);
-      }
-
-      .donut-center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-      }
-
-      .donut-value {
-        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-weight: bold;
-        color: #333;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
       }
 
-      .donut-label {
-        font-size: 0.9rem;
-        color: #666;
+      .dashboard-nav {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 1rem 2.5rem;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        gap: 2rem;
       }
 
-      /* KPI Cards */
-      .kpi-grid {
+      .nav-item {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        color: #6b7280;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .nav-item.active {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      .nav-item:hover:not(.active) {
+        background: #f3f4f6;
+        color: #374151;
+      }
+
+      .dashboard-content {
+        padding: 2.5rem;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        margin: 3rem 0;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
       }
 
-      .kpi-card {
-        background: white;
+      .metric-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
         border-radius: 15px;
         padding: 2rem;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        animation: slideInUp 0.6s ease-out;
         position: relative;
         overflow: hidden;
+        transition: all 0.3s ease;
       }
 
-      .kpi-card::before {
+      .metric-card::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #e91e63, #9c27b0);
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(
+          180deg,
+          var(--card-color),
+          var(--card-color-light)
+        );
       }
 
-      .kpi-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      .metric-card:nth-child(1) {
+        --card-color: #10b981;
+        --card-color-light: #34d399;
+        animation-delay: 0.1s;
+      }
+      .metric-card:nth-child(2) {
+        --card-color: #f59e0b;
+        --card-color-light: #fbbf24;
+        animation-delay: 0.2s;
+      }
+      .metric-card:nth-child(3) {
+        --card-color: #ef4444;
+        --card-color-light: #f87171;
+        animation-delay: 0.3s;
+      }
+      .metric-card:nth-child(4) {
+        --card-color: #8b5cf6;
+        --card-color-light: #a78bfa;
+        animation-delay: 0.4s;
       }
 
-      .kpi-icon {
-        width: 60px;
-        height: 60px;
-        margin: 0 auto 1rem;
-        background: linear-gradient(135deg, #e91e63, #9c27b0);
-        border-radius: 50%;
+      .metric-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .metric-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+      }
+
+      .metric-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 1.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--card-color),
+          var(--card-color-light)
+        );
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       }
 
-      .kpi-value {
-        font-size: 2.5rem;
+      .metric-title {
+        font-size: 0.95rem;
+        color: #6b7280;
+        margin-bottom: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .metric-value {
+        font-size: 2.2rem;
         font-weight: bold;
-        color: #333;
+        color: #1f2937;
         margin-bottom: 0.5rem;
       }
 
-      .kpi-label {
-        color: #666;
-        font-size: 1rem;
-      }
-
-      .kpi-change {
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
+      .metric-change {
+        font-size: 0.85rem;
+        margin-top: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
         font-weight: 600;
       }
 
-      .kpi-change.positive {
-        color: #4caf50;
+      .change-indicator {
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: bold;
       }
 
-      .kpi-change.negative {
-        color: #f44336;
+      .positive {
+        color: #10b981;
       }
 
-      /* Data Table */
-      .data-table-container {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        margin: 3rem 0;
+      .positive .change-indicator {
+        background: rgba(16, 185, 129, 0.1);
+        color: #10b981;
       }
 
-      .table-controls {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-        flex-wrap: wrap;
-        gap: 1rem;
+      .negative {
+        color: #ef4444;
       }
 
-      .search-box {
-        padding: 0.75rem 1rem;
-        border: 2px solid #e0e0e0;
-        border-radius: 25px;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        min-width: 250px;
+      .negative .change-indicator {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
       }
 
-      .search-box:focus {
-        outline: none;
-        border-color: #e91e63;
-        box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
-      }
-
-      .data-table {
-        width: 100%;
-        border-collapse: collapse;
+      .dashboard-stats {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
         margin-top: 1rem;
       }
 
-      .data-table th,
-      .data-table td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid #e0e0e0;
-      }
-
-      .data-table th {
-        background: #f8f9fa;
-        font-weight: 600;
-        color: #333;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .data-table th:hover {
-        background: #e91e63;
-        color: white;
-      }
-
-      .data-table tr:hover {
-        background: #f8f9fa;
-      }
-
-      /* Features Section */
-      .features {
-        padding: 80px 0;
-        background: white;
-      }
-
-      .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-top: 3rem;
-      }
-
-      .feature-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        border: 1px solid #f0f0f0;
-        text-align: center;
-      }
-
-      .feature-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        border-color: #e91e63;
-      }
-
-      .feature-icon {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 1.5rem;
-        background: linear-gradient(135deg, #e91e63, #9c27b0);
-        border-radius: 20px;
+      .chart-placeholder {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border-radius: 12px;
+        height: 200px;
         display: flex;
         align-items: center;
         justify-content: center;
+        color: #6b7280;
+        font-weight: 600;
+        border: 2px dashed #cbd5e1;
       }
 
-      .feature-card h3 {
-        font-size: 1.5rem;
+      .recent-activity {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid #e2e8f0;
+      }
+
+      .activity-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #1f2937;
         margin-bottom: 1rem;
-        color: #333;
       }
 
-      .feature-card p {
-        color: #666;
-        margin-bottom: 1.5rem;
+      .activity-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .activity-item:last-child {
+        border-bottom: none;
+      }
+
+      .activity-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--card-color);
+      }
+
+      .activity-text {
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
+
+      /* Floating Objects */
+      .floating-object {
+        position: absolute;
+        opacity: 0.7;
+        animation: floatAround 8s ease-in-out infinite;
+      }
+
+      .floating-object:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .floating-object:nth-child(2) {
+        top: 60%;
+        right: 15%;
+        animation-delay: 2s;
+      }
+
+      .floating-object:nth-child(3) {
+        bottom: 20%;
+        left: 20%;
+        animation-delay: 4s;
+      }
+
+      .floating-object:nth-child(4) {
+        top: 40%;
+        right: 30%;
+        animation-delay: 6s;
       }
 
       /* Footer */
-      footer {
-        background: #1a237e;
+      .footer {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(20px);
+        padding: 4rem 2rem 2rem 2rem;
         color: white;
-        padding: 3rem 0 1rem;
       }
 
-      .footer-content {
+      .footer-container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .footer-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
+        gap: 3rem;
         margin-bottom: 2rem;
       }
 
       .footer-section h3 {
+        font-size: 1.2rem;
+        font-weight: bold;
         margin-bottom: 1rem;
-        color: #fff;
+        color: #ff6b6b;
       }
 
       .footer-section ul {
         list-style: none;
         padding: 0;
+        margin: 0;
       }
 
-      .footer-section ul li {
+      .footer-section li {
         margin-bottom: 0.5rem;
       }
 
-      .footer-section ul li a {
-        color: #ccc;
+      .footer-section a {
+        color: rgba(255, 255, 255, 0.8);
         text-decoration: none;
-        transition: color 0.3s ease;
+        transition: color 0.3s;
       }
 
-      .footer-section ul li a:hover {
-        color: white;
+      .footer-section a:hover {
+        color: #ff6b6b;
       }
 
       .footer-bottom {
-        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
         padding-top: 2rem;
-        border-top: 1px solid #333;
-        color: #ccc;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.6);
       }
 
       /* Animations */
@@ -617,724 +1125,1134 @@
         }
       }
 
-      @keyframes drawLine {
+      @keyframes slideInUp {
         from {
-          background-size: 0 20px;
+          opacity: 0;
+          transform: translateY(20px);
         }
         to {
-          background-size: 20px 20px;
+          opacity: 1;
+          transform: translateY(0);
         }
       }
 
-      @keyframes pulse {
+      @keyframes floatAround {
         0%,
         100% {
-          transform: scale(1);
+          transform: translate(0, 0) rotate(0deg) scale(1);
+        }
+        25% {
+          transform: translate(30px, -30px) rotate(90deg) scale(1.1);
         }
         50% {
-          transform: scale(1.05);
+          transform: translate(-20px, -40px) rotate(180deg) scale(0.9);
+        }
+        75% {
+          transform: translate(-40px, 20px) rotate(270deg) scale(1.05);
         }
       }
 
-      .pulse {
-        animation: pulse 2s infinite;
+      @keyframes particleFloat {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
       }
 
-      /* Responsive Design */
+      /* Companies Section */
+      .companies-section {
+        padding: 4rem 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+      }
+
+      .companies-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .companies-container h2 {
+        color: white;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .companies-scroll {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .company-logo-row {
+        position: absolute;
+        display: flex;
+        gap: 3rem;
+        animation: scrollLeft 15s linear infinite;
+      }
+
+      .company-logo-row.reverse {
+        top: 50%;
+        animation: scrollRight 20s linear infinite;
+      }
+
+      .company-logo {
+        background: rgba(255, 255, 255, 0.9);
+        color: #4f46e5;
+        padding: 1.5rem 2rem;
+        border-radius: 15px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        min-width: 150px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+      }
+
+      .company-logo:hover {
+        transform: scale(1.1);
+      }
+
+      /* Pricing Section */
+      .pricing-section {
+        padding: 6rem 2rem;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+
+      .pricing-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .pricing-container h2 {
+        color: white;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .pricing-subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .pricing-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 2.5rem;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+      }
+
+      .pricing-card.popular {
+        border: 3px solid #ffd700;
+        transform: scale(1.05);
+      }
+
+      .popular-badge {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(45deg, #ffd700, #ffed4e);
+        color: #333;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      .plan-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      .plan-price {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #4f46e5;
+        margin-bottom: 2rem;
+      }
+
+      .plan-price span {
+        font-size: 1rem;
+        color: #666;
+      }
+
+      .plan-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2rem 0;
+        text-align: left;
+      }
+
+      .plan-features li {
+        padding: 0.5rem 0;
+        color: #333;
+        font-size: 1rem;
+      }
+
+      .plan-button {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #4f46e5;
+        background: transparent;
+        color: #4f46e5;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .plan-button:hover {
+        background: #4f46e5;
+        color: white;
+      }
+
+      .plan-button.primary {
+        background: #4f46e5;
+        color: white;
+      }
+
+      .plan-button.primary:hover {
+        background: #3730a3;
+      }
+
+      /* Contact Section */
+      .contact-section {
+        padding: 6rem 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+      }
+
+      .contact-info h2 {
+        color: white;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .contact-info p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+
+      .contact-details {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: white;
+      }
+
+      .contact-icon {
+        font-size: 2rem;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .contact-item h4 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.1rem;
+      }
+
+      .contact-item p {
+        margin: 0;
+        opacity: 0.9;
+      }
+
+      .contact-form {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      }
+
+      .contact-form h3 {
+        color: #333;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #4f46e5;
+      }
+
+      .submit-button {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(45deg, #4f46e5, #7c3aed);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .submit-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+      }
+
+      /* Responsive */
       @media (max-width: 768px) {
-        .nav-links {
-          display: none;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          width: 100%;
-          background: #1a237e;
-          flex-direction: column;
-          padding: 1rem;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-links.active {
-          display: flex;
-        }
-
-        .mobile-menu {
-          display: flex;
-        }
-
         .hero h1 {
           font-size: 2.5rem;
         }
 
-        .hero p {
-          font-size: 1.1rem;
+        .nav-links {
+          display: none;
         }
 
-        .cta-buttons {
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .analytics-grid {
+        .dashboard-content {
           grid-template-columns: 1fr;
         }
 
-        .kpi-grid {
+        .contact-content {
           grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .pricing-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .pricing-card.popular {
+          transform: none;
+        }
+      }
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-stats {
+          grid-template-columns: repeat(2, 1fr);
         }
 
         .features-grid {
           grid-template-columns: 1fr;
         }
 
-        .table-controls {
-          flex-direction: column;
-          align-items: stretch;
+        .footer-grid {
+          grid-template-columns: 1fr;
         }
-
-        .search-box {
-          min-width: auto;
-        }
-      }
-
-      /* Scroll animations */
-      .scroll-animate {
-        opacity: 0;
-        transform: translateY(50px);
-        transition: all 0.6s ease;
-      }
-
-      .scroll-animate.animate {
-        opacity: 1;
-        transform: translateY(0);
       }
     </style>
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="index.html" class="logo">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-            <rect width="40" height="40" rx="8" fill="#ff6b6b" />
-            <path
-              d="M10 15h20v2H10v-2zm0 4h20v2H10v-2zm0 4h15v2H10v-2z"
-              fill="white"
-            />
-          </svg>
-          Zoho
-        </a>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Floating Objects -->
+    <div class="floating-objects">
+      <div class="floating-object">📊</div>
+      <div class="floating-object">💹</div>
+      <div class="floating-object">📈</div>
+      <div class="floating-object">💰</div>
+      <div class="floating-object">🎯</div>
+      <div class="floating-object">📋</div>
+      <div class="floating-object">⚡</div>
+      <div class="floating-object">🔍</div>
+      <!-- Particles -->
+      <div class="particle" style="left: 10%; animation-delay: 0s"></div>
+      <div class="particle" style="left: 20%; animation-delay: 1s"></div>
+      <div class="particle" style="left: 30%; animation-delay: 2s"></div>
+      <div class="particle" style="left: 40%; animation-delay: 3s"></div>
+      <div class="particle" style="left: 50%; animation-delay: 4s"></div>
+      <div class="particle" style="left: 60%; animation-delay: 5s"></div>
+      <div class="particle" style="left: 70%; animation-delay: 6s"></div>
+      <div class="particle" style="left: 80%; animation-delay: 7s"></div>
+      <div class="particle" style="left: 90%; animation-delay: 8s"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <div class="logo">Zoho Analytics</div>
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="finance.html">Finance</a></li>
-          <li><a href="analytics.html" class="active">Analytics</a></li>
+          <li><a href="#analytics">Analytics</a></li>
           <li><a href="#features">Features</a></li>
-          <li><a href="#demo">Live Demo</a></li>
+          <li><a href="#reports">Reports</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
-        <div class="mobile-menu" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <a href="#signup" class="cta-button">Start Free Trial</a>
       </nav>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="hero-content">
-          <h1>Zoho Analytics</h1>
-          <p>
-            Transform your data into actionable insights with powerful business
-            intelligence, interactive dashboards, and advanced analytics
-            capabilities.
-          </p>
-          <div class="cta-buttons">
-            <a href="#demo" class="btn btn-primary">Try Live Demo</a>
-            <a href="#features" class="btn btn-secondary">Explore Features</a>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Interactive Analytics Dashboard</h1>
+      <p class="hero-subtitle">
+        Experience real-time data visualization and insights
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="stat-value">$2.4M</div>
+          <div class="stat-label">Revenue Trend</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-value">37%</div>
+          <div class="stat-label">Market Share</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-value">1,247</div>
+          <div class="stat-label">Product A</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-value">94</div>
+          <div class="stat-label">New Customers</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analytics Dashboard Section -->
+    <section class="analytics-section" id="analytics">
+      <div class="analytics-container">
+        <h2 class="section-title">Interactive Analytics Dashboard</h2>
+
+        <!-- Scrolling Cards Background -->
+        <div class="scrolling-cards-container">
+          <!-- Row 1: Left to Right -->
+          <div class="scrolling-row left-to-right">
+            <div class="scroll-card">
+              <span class="scroll-card-icon">📊</span>
+              <div class="scroll-card-title">Revenue Analytics</div>
+              <div class="scroll-card-value">$2.4M</div>
+              <div class="scroll-card-change">↗ +15.3%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">👥</span>
+              <div class="scroll-card-title">Active Users</div>
+              <div class="scroll-card-value">12,847</div>
+              <div class="scroll-card-change">↗ +8.2%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">💰</span>
+              <div class="scroll-card-title">Profit Margin</div>
+              <div class="scroll-card-value">37.5%</div>
+              <div class="scroll-card-change">↗ +2.1%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">📈</span>
+              <div class="scroll-card-title">Growth Rate</div>
+              <div class="scroll-card-value">+22.4%</div>
+              <div class="scroll-card-change">↗ +5.7%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">🎯</span>
+              <div class="scroll-card-title">Conversion</div>
+              <div class="scroll-card-value">94.2%</div>
+              <div class="scroll-card-change">↗ +3.8%</div>
+            </div>
+          </div>
+
+          <!-- Row 2: Right to Left -->
+          <div class="scrolling-row right-to-left">
+            <div class="scroll-card">
+              <span class="scroll-card-icon">📱</span>
+              <div class="scroll-card-title">Mobile Traffic</div>
+              <div class="scroll-card-value">68.3%</div>
+              <div class="scroll-card-change">↗ +12.5%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">⚡</span>
+              <div class="scroll-card-title">Page Speed</div>
+              <div class="scroll-card-value">2.1s</div>
+              <div class="scroll-card-change">↘ -0.3s</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">🌟</span>
+              <div class="scroll-card-title">Satisfaction</div>
+              <div class="scroll-card-value">4.8/5</div>
+              <div class="scroll-card-change">↗ +0.2</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">🔄</span>
+              <div class="scroll-card-title">Return Rate</div>
+              <div class="scroll-card-value">76.9%</div>
+              <div class="scroll-card-change">↗ +4.1%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">💎</span>
+              <div class="scroll-card-title">Premium Users</div>
+              <div class="scroll-card-value">3,247</div>
+              <div class="scroll-card-change">↗ +18.7%</div>
+            </div>
+          </div>
+
+          <!-- Row 3: Left to Right -->
+          <div class="scrolling-row left-to-right-2">
+            <div class="scroll-card">
+              <span class="scroll-card-icon">🛒</span>
+              <div class="scroll-card-title">Cart Value</div>
+              <div class="scroll-card-value">$156</div>
+              <div class="scroll-card-change">↗ +8.7%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">📧</span>
+              <div class="scroll-card-title">Email CTR</div>
+              <div class="scroll-card-value">24.6%</div>
+              <div class="scroll-card-change">↗ +6.3%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">🌐</span>
+              <div class="scroll-card-title">Global Reach</div>
+              <div class="scroll-card-value">45 Countries</div>
+              <div class="scroll-card-change">↗ +3 New</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">🔍</span>
+              <div class="scroll-card-title">SEO Score</div>
+              <div class="scroll-card-value">92/100</div>
+              <div class="scroll-card-change">↗ +7 Points</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">📋</span>
+              <div class="scroll-card-title">Reports</div>
+              <div class="scroll-card-value">1,247</div>
+              <div class="scroll-card-change">↗ +156</div>
+            </div>
+          </div>
+
+          <!-- Row 4: Right to Left -->
+          <div class="scrolling-row right-to-left-2">
+            <div class="scroll-card">
+              <span class="scroll-card-icon">🚀</span>
+              <div class="scroll-card-title">Performance</div>
+              <div class="scroll-card-value">98.7%</div>
+              <div class="scroll-card-change">↗ +1.2%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">💡</span>
+              <div class="scroll-card-title">Insights</div>
+              <div class="scroll-card-value">847</div>
+              <div class="scroll-card-change">↗ +92</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">🔐</span>
+              <div class="scroll-card-title">Security</div>
+              <div class="scroll-card-value">100%</div>
+              <div class="scroll-card-change">✓ Secure</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">⏱️</span>
+              <div class="scroll-card-title">Uptime</div>
+              <div class="scroll-card-value">99.9%</div>
+              <div class="scroll-card-change">↗ +0.1%</div>
+            </div>
+            <div class="scroll-card">
+              <span class="scroll-card-icon">📊</span>
+              <div class="scroll-card-title">Data Points</div>
+              <div class="scroll-card-value">2.4M</div>
+              <div class="scroll-card-change">↗ +340K</div>
+            </div>
           </div>
         </div>
-      </section>
 
-      <section class="dashboard" id="demo">
-        <div class="container">
-          <div class="section-title scroll-animate">
-            <h2>Interactive Analytics Dashboard</h2>
-            <p>Experience real-time data visualization and insights</p>
-          </div>
-
-          <div class="dashboard-controls scroll-animate">
-            <button class="control-btn active" onclick="switchView('sales')">
-              Sales Analytics
-            </button>
-            <button class="control-btn" onclick="switchView('marketing')">
-              Marketing Metrics
-            </button>
-            <button class="control-btn" onclick="switchView('operations')">
-              Operations Data
-            </button>
-            <button class="control-btn" onclick="switchView('finance')">
-              Financial KPIs
-            </button>
-          </div>
-
-          <div class="analytics-grid scroll-animate">
-            <div class="chart-container">
-              <div class="chart-header">
-                <div class="chart-title">Revenue Trend</div>
-                <div class="chart-value" id="revenue-value">$2.4M</div>
+        <!-- Central Dashboard Image -->
+        <div class="dashboard-image-container">
+          <div class="dashboard-image">
+            <div class="dashboard-header">
+              <div class="dashboard-title">Analytics Overview</div>
+              <div class="dashboard-tabs">
+                <div class="tab active">Sales</div>
+                <div class="tab">Marketing</div>
+                <div class="tab">Operations</div>
+                <div class="tab">Financial</div>
               </div>
-              <div class="line-chart">
-                <div class="chart-line"></div>
-                <div class="chart-points">
-                  <div
-                    class="chart-point"
-                    style="left: 10%; bottom: 30%"
-                    data-value="$1.8M"
-                    onclick="highlightPoint(this)"
-                  ></div>
-                  <div
-                    class="chart-point"
-                    style="left: 25%; bottom: 50%"
-                    data-value="$2.1M"
-                    onclick="highlightPoint(this)"
-                  ></div>
-                  <div
-                    class="chart-point"
-                    style="left: 40%; bottom: 35%"
-                    data-value="$1.9M"
-                    onclick="highlightPoint(this)"
-                  ></div>
-                  <div
-                    class="chart-point"
-                    style="left: 55%; bottom: 70%"
-                    data-value="$2.4M"
-                    onclick="highlightPoint(this)"
-                  ></div>
-                  <div
-                    class="chart-point"
-                    style="left: 70%; bottom: 60%"
-                    data-value="$2.2M"
-                    onclick="highlightPoint(this)"
-                  ></div>
-                  <div
-                    class="chart-point"
-                    style="left: 85%; bottom: 80%"
-                    data-value="$2.6M"
-                    onclick="highlightPoint(this)"
-                  ></div>
+            </div>
+
+            <div class="dashboard-content">
+              <div class="dashboard-metric">
+                <div class="metric-value">↗ +12.5%</div>
+                <div class="metric-label">New Customers</div>
+                <div class="metric-change positive">↗ +12.5%</div>
+              </div>
+              <div class="dashboard-metric">
+                <div class="metric-value">94</div>
+                <div class="metric-label">Conversion Rate (%)</div>
+                <div class="metric-change positive">↗ +3.2%</div>
+              </div>
+              <div class="dashboard-metric">
+                <div class="metric-value">2,847</div>
+                <div class="metric-label">Active Users</div>
+                <div class="metric-change negative">↘ -2.1%</div>
+              </div>
+              <div class="dashboard-metric">
+                <div class="metric-value">$156</div>
+                <div class="metric-label">Avg. Order Value</div>
+                <div class="metric-change positive">↗ +8.7%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Table Section -->
+    <section
+      class="products-section"
+      id="reports"
+      style="
+        padding: 6rem 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+      "
+    >
+      <div style="max-width: 1400px; margin: 0 auto">
+        <div
+          style="
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+          "
+        >
+          <div class="products-header">
+            <h3
+              class="section-title"
+              style="color: #333; text-align: left; font-size: 1.8rem"
+            >
+              Top Performing Products
+            </h3>
+            <div class="search-box">
+              <span>🔍</span>
+              <input type="text" placeholder="Search products..." />
+            </div>
+          </div>
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Revenue</th>
+                <th>Units Sold</th>
+                <th>Growth</th>
+                <th>Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Premium Widget Pro</strong></td>
+                <td>$245,000</td>
+                <td>1,250</td>
+                <td class="growth-positive">+15.2%</td>
+                <td><span class="rating">⭐⭐⭐⭐⭐</span> 4.8</td>
+              </tr>
+              <tr>
+                <td><strong>Smart Analytics Suite</strong></td>
+                <td>$189,500</td>
+                <td>890</td>
+                <td class="growth-positive">+22.1%</td>
+                <td><span class="rating">⭐⭐⭐⭐⭐</span> 4.9</td>
+              </tr>
+              <tr>
+                <td><strong>Business Dashboard</strong></td>
+                <td>$156,800</td>
+                <td>2,100</td>
+                <td class="growth-positive">+8.7%</td>
+                <td><span class="rating">⭐⭐⭐⭐</span> 4.6</td>
+              </tr>
+              <tr>
+                <td><strong>Mobile App Builder</strong></td>
+                <td>$134,200</td>
+                <td>670</td>
+                <td class="growth-negative">-3.2%</td>
+                <td><span class="rating">⭐⭐⭐⭐</span> 4.4</td>
+              </tr>
+              <tr>
+                <td><strong>Cloud Storage Plus</strong></td>
+                <td>$98,750</td>
+                <td>1,890</td>
+                <td class="growth-positive">+12.8%</td>
+                <td><span class="rating">⭐⭐⭐⭐</span> 4.5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="features-container">
+        <h2 class="section-title">Advanced Analytics Features</h2>
+        <p class="section-subtitle">
+          Powerful tools to unlock insights from your data
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <div class="feature-title">Real-time Dashboards</div>
+            <div class="feature-description">
+              Create interactive dashboards with live data updates and
+              customizable visualizations for instant insights.
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <div class="feature-title">AI-Powered Insights</div>
+            <div class="feature-description">
+              Leverage machine learning algorithms to discover hidden patterns
+              and predict future trends automatically.
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔗</div>
+            <div class="feature-title">Multi-Source Integration</div>
+            <div class="feature-description">
+              Connect and analyze data from multiple sources including
+              databases, APIs, and cloud services seamlessly.
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-title">Advanced Security</div>
+            <div class="feature-description">
+              Enterprise-grade security with role-based access control and data
+              encryption to protect sensitive information.
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <div class="feature-title">Custom Reports</div>
+            <div class="feature-description">
+              Generate detailed reports with drag-and-drop functionality and
+              automated scheduling for stakeholders.
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <div class="feature-title">Mobile Analytics</div>
+            <div class="feature-description">
+              Access your analytics on-the-go with responsive mobile dashboards
+              and native mobile applications.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="contact-container">
+        <div class="contact-content">
+          <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p>
+              Ready to transform your business with powerful analytics? Our team
+              is here to help you get started.
+            </p>
+            <div class="contact-details">
+              <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <div>
+                  <h4>Phone</h4>
+                  <p>+1 (555) 123-4567</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div>
+                  <h4>Email</h4>
+                  <p>support@zohoanalytics.com</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">🌍</div>
+                <div>
+                  <h4>Office</h4>
+                  <p>
+                    123 Analytics Ave, Suite 100<br />San Francisco, CA 94105
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div class="chart-container">
-              <div class="chart-header">
-                <div class="chart-title">Market Share</div>
-              </div>
-              <div class="donut-chart">
-                <svg width="200" height="200">
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="85"
-                    class="donut-segment"
-                    stroke="#e91e63"
-                    stroke-dasharray="200 340"
-                    stroke-dashoffset="0"
-                    onclick="updateDonut('Product A', '37%')"
-                  ></circle>
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="85"
-                    class="donut-segment"
-                    stroke="#9c27b0"
-                    stroke-dasharray="120 420"
-                    stroke-dashoffset="-200"
-                    onclick="updateDonut('Product B', '22%')"
-                  ></circle>
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="85"
-                    class="donut-segment"
-                    stroke="#3f51b5"
-                    stroke-dasharray="100 440"
-                    stroke-dashoffset="-320"
-                    onclick="updateDonut('Product C', '19%')"
-                  ></circle>
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="85"
-                    class="donut-segment"
-                    stroke="#00bcd4"
-                    stroke-dasharray="120 420"
-                    stroke-dashoffset="-420"
-                    onclick="updateDonut('Others', '22%')"
-                  ></circle>
-                </svg>
-                <div class="donut-center">
-                  <div class="donut-value" id="donut-value">37%</div>
-                  <div class="donut-label" id="donut-label">Product A</div>
-                </div>
-              </div>
-            </div>
           </div>
-
-          <div class="kpi-grid scroll-animate">
-            <div class="kpi-card pulse" onclick="animateKPI(this)">
-              <div class="kpi-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                  <path
-                    d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
-                  />
-                </svg>
+          <div class="contact-form">
+            <h3>Send us a Message</h3>
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required />
               </div>
-              <div class="kpi-value" data-target="1247">0</div>
-              <div class="kpi-label">New Customers</div>
-              <div class="kpi-change positive">↗ +12.5%</div>
-            </div>
-
-            <div class="kpi-card" onclick="animateKPI(this)">
-              <div class="kpi-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                  <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-                  />
-                </svg>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required />
               </div>
-              <div class="kpi-value" data-target="94">0</div>
-              <div class="kpi-label">Conversion Rate (%)</div>
-              <div class="kpi-change positive">↗ +3.2%</div>
-            </div>
-
-            <div class="kpi-card" onclick="animateKPI(this)">
-              <div class="kpi-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                  <path d="M7 14l5-5 5 5z" />
-                </svg>
+              <div class="form-group">
+                <label for="company">Company Name</label>
+                <input type="text" id="company" name="company" />
               </div>
-              <div class="kpi-value" data-target="2847">0</div>
-              <div class="kpi-label">Active Users</div>
-              <div class="kpi-change negative">↘ -2.1%</div>
-            </div>
-
-            <div class="kpi-card" onclick="animateKPI(this)">
-              <div class="kpi-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                  <path
-                    d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"
-                  />
-                </svg>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  required
+                ></textarea>
               </div>
-              <div class="kpi-value" data-target="156">$0</div>
-              <div class="kpi-label">Avg. Order Value</div>
-              <div class="kpi-change positive">↗ +8.7%</div>
-            </div>
-          </div>
-
-          <div class="data-table-container scroll-animate">
-            <div class="table-controls">
-              <h3>Top Performing Products</h3>
-              <input
-                type="text"
-                class="search-box"
-                placeholder="Search products..."
-                onkeyup="filterTable(this.value)"
-              />
-            </div>
-            <table class="data-table" id="products-table">
-              <thead>
-                <tr>
-                  <th onclick="sortTable(0)">Product Name</th>
-                  <th onclick="sortTable(1)">Revenue</th>
-                  <th onclick="sortTable(2)">Units Sold</th>
-                  <th onclick="sortTable(3)">Growth</th>
-                  <th onclick="sortTable(4)">Rating</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Premium Widget Pro</td>
-                  <td>$245,000</td>
-                  <td>1,250</td>
-                  <td style="color: #4caf50">+15.2%</td>
-                  <td>⭐⭐⭐⭐⭐ 4.8</td>
-                </tr>
-                <tr>
-                  <td>Smart Analytics Suite</td>
-                  <td>$189,500</td>
-                  <td>890</td>
-                  <td style="color: #4caf50">+22.1%</td>
-                  <td>⭐⭐⭐⭐⭐ 4.9</td>
-                </tr>
-                <tr>
-                  <td>Business Dashboard</td>
-                  <td>$156,800</td>
-                  <td>2,100</td>
-                  <td style="color: #4caf50">+8.7%</td>
-                  <td>⭐⭐⭐⭐ 4.6</td>
-                </tr>
-                <tr>
-                  <td>Mobile App Builder</td>
-                  <td>$134,200</td>
-                  <td>670</td>
-                  <td style="color: #f44336">-3.2%</td>
-                  <td>⭐⭐⭐⭐ 4.4</td>
-                </tr>
-                <tr>
-                  <td>Cloud Storage Plus</td>
-                  <td>$98,750</td>
-                  <td>1,890</td>
-                  <td style="color: #4caf50">+12.8%</td>
-                  <td>⭐⭐⭐⭐ 4.5</td>
-                </tr>
-              </tbody>
-            </table>
+              <button type="submit" class="submit-button">Send Message</button>
+            </form>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="features" id="features">
-        <div class="container">
-          <div class="section-title scroll-animate">
-            <h2>Advanced Analytics Features</h2>
-            <p>Powerful tools to unlock insights from your data</p>
-          </div>
-          <div class="features-grid">
-            <div class="feature-card scroll-animate">
-              <div class="feature-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
-                  <path
-                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"
-                  />
-                </svg>
-              </div>
-              <h3>Real-time Dashboards</h3>
-              <p>
-                Create interactive dashboards with live data updates and
-                customizable visualizations for instant insights.
-              </p>
-            </div>
-            <div class="feature-card scroll-animate">
-              <div class="feature-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
-                  <path
-                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  />
-                </svg>
-              </div>
-              <h3>AI-Powered Insights</h3>
-              <p>
-                Leverage machine learning algorithms to discover hidden patterns
-                and predict future trends automatically.
-              </p>
-            </div>
-            <div class="feature-card scroll-animate">
-              <div class="feature-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
-                  <path
-                    d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-1 16H9V7h9v14z"
-                  />
-                </svg>
-              </div>
-              <h3>Multi-Source Integration</h3>
-              <p>
-                Connect and analyze data from multiple sources including
-                databases, APIs, and cloud services seamlessly.
-              </p>
-            </div>
-            <div class="feature-card scroll-animate">
-              <div class="feature-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
-                  <path
-                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"
-                  />
-                </svg>
-              </div>
-              <h3>Advanced Security</h3>
-              <p>
-                Enterprise-grade security with role-based access control and
-                data encryption to protect sensitive information.
-              </p>
-            </div>
-            <div class="feature-card scroll-animate">
-              <div class="feature-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
-                  <path
-                    d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"
-                  />
-                </svg>
-              </div>
-              <h3>Custom Reports</h3>
-              <p>
-                Generate detailed reports with drag-and-drop functionality and
-                automated scheduling for stakeholders.
-              </p>
-            </div>
-            <div class="feature-card scroll-animate">
-              <div class="feature-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
-                  <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-                  />
-                </svg>
-              </div>
-              <h3>Mobile Analytics</h3>
-              <p>
-                Access your analytics on-the-go with responsive mobile
-                dashboards and native mobile applications.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="container">
-        <div class="footer-content">
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-grid">
           <div class="footer-section">
             <h3>Products</h3>
             <ul>
-              <li><a href="finance.html">Zoho Finance</a></li>
-              <li><a href="analytics.html">Zoho Analytics</a></li>
-              <li><a href="#">Zoho CRM</a></li>
-              <li><a href="#">Zoho Projects</a></li>
+              <li><a href="#finance">Zoho Finance</a></li>
+              <li><a href="#analytics">Zoho Analytics</a></li>
+              <li><a href="#crm">Zoho CRM</a></li>
+              <li><a href="#projects">Zoho Projects</a></li>
             </ul>
           </div>
           <div class="footer-section">
             <h3>Company</h3>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Press</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#careers">Careers</a></li>
+              <li><a href="#press">Press</a></li>
+              <li><a href="#contact">Contact</a></li>
             </ul>
           </div>
           <div class="footer-section">
             <h3>Support</h3>
             <ul>
-              <li><a href="#">Help Center</a></li>
-              <li><a href="#">Documentation</a></li>
-              <li><a href="#">Community</a></li>
-              <li><a href="#">Training</a></li>
+              <li><a href="#help">Help Center</a></li>
+              <li><a href="#docs">Documentation</a></li>
+              <li><a href="#community">Community</a></li>
+              <li><a href="#training">Training</a></li>
             </ul>
           </div>
           <div class="footer-section">
             <h3>Legal</h3>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">Security</a></li>
-              <li><a href="#">Compliance</a></li>
+              <li><a href="#privacy">Privacy Policy</a></li>
+              <li><a href="#terms">Terms of Service</a></li>
+              <li><a href="#security">Security</a></li>
+              <li><a href="#compliance">Compliance</a></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 Zoho Corporation. All rights reserved.</p>
+          <p>© 2024 Zoho Corporation. All rights reserved.</p>
         </div>
       </div>
     </footer>
 
     <script>
-      // Mobile menu toggle
-      function toggleMenu() {
-        const navLinks = document.querySelector(".nav-links");
-        navLinks.classList.toggle("active");
-      }
+      // Enhanced parallax effect for floating objects
+      document.addEventListener("mousemove", function (e) {
+        const objects = document.querySelectorAll(".floating-object");
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
 
-      // Switch dashboard views
-      function switchView(viewType) {
-        // Update active button
-        document.querySelectorAll(".control-btn").forEach((btn) => {
-          btn.classList.remove("active");
+        objects.forEach((obj, index) => {
+          const speed = (index + 1) * 0.3;
+          const xPos = (x - 0.5) * speed * 30;
+          const yPos = (y - 0.5) * speed * 30;
+          obj.style.transform = `translate(${xPos}px, ${yPos}px) rotate(${
+            index * 45
+          }deg)`;
         });
-        event.target.classList.add("active");
+      });
 
-        // Update chart data based on view
-        const revenueValue = document.getElementById("revenue-value");
-        const chartPoints = document.querySelectorAll(".chart-point");
+      // Animate metric cards on hover
+      document.querySelectorAll(".metric-card").forEach((card, index) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-8px) scale(1.03)";
+          this.style.boxShadow = "0 20px 40px rgba(0,0,0,0.2)";
+        });
 
-        const viewData = {
-          sales: {
-            value: "$2.4M",
-            points: ["$1.8M", "$2.1M", "$1.9M", "$2.4M", "$2.2M", "$2.6M"],
-          },
-          marketing: {
-            value: "$1.8M",
-            points: ["$1.2M", "$1.5M", "$1.3M", "$1.8M", "$1.6M", "$2.0M"],
-          },
-          operations: {
-            value: "$3.1M",
-            points: ["$2.5M", "$2.8M", "$2.6M", "$3.1M", "$2.9M", "$3.3M"],
-          },
-          finance: {
-            value: "$2.9M",
-            points: ["$2.2M", "$2.5M", "$2.3M", "$2.9M", "$2.7M", "$3.1M"],
-          },
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) scale(1)";
+          this.style.boxShadow = "0 8px 25px rgba(0,0,0,0.08)";
+        });
+      });
+
+      // Dashboard tabs functionality
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", function () {
+          // Remove active class from all tabs
+          document
+            .querySelectorAll(".tab")
+            .forEach((t) => t.classList.remove("active"));
+
+          // Add active class to clicked tab
+          this.classList.add("active");
+
+          // Add click animation
+          this.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            this.style.transform = "scale(1)";
+          }, 150);
+
+          // Update metrics based on selected tab
+          updateMetrics(this.textContent);
+        });
+      });
+
+      // Function to update metrics based on selected tab
+      function updateMetrics(tabName) {
+        const metrics = document.querySelectorAll(".metric-card");
+
+        // Sample data for different tabs
+        const data = {
+          Sales: [
+            { value: "↗ +12.5%", label: "New Customers", change: "positive" },
+            { value: "94", label: "Conversion Rate (%)", change: "positive" },
+            { value: "2,847", label: "Active Users", change: "negative" },
+            { value: "$156", label: "Avg. Order Value", change: "positive" },
+          ],
+          Marketing: [
+            { value: "45.2%", label: "Click-through Rate", change: "positive" },
+            { value: "1,234", label: "Leads Generated", change: "positive" },
+            { value: "$2.45", label: "Cost per Click", change: "negative" },
+            { value: "78%", label: "Email Open Rate", change: "positive" },
+          ],
+          Operations: [
+            { value: "99.8%", label: "System Uptime", change: "positive" },
+            { value: "2.3s", label: "Avg Response Time", change: "positive" },
+            { value: "156", label: "Support Tickets", change: "negative" },
+            { value: "4.9/5", label: "Customer Rating", change: "positive" },
+          ],
+          Financial: [
+            { value: "$2.4M", label: "Total Revenue", change: "positive" },
+            { value: "37%", label: "Profit Margin", change: "positive" },
+            { value: "$890K", label: "Operating Costs", change: "negative" },
+            { value: "15.3%", label: "Growth Rate", change: "positive" },
+          ],
         };
 
-        revenueValue.textContent = viewData[viewType].value;
-        chartPoints.forEach((point, index) => {
-          point.setAttribute("data-value", viewData[viewType].points[index]);
-        });
+        const tabData = data[tabName] || data["Sales"];
 
-        // Add animation effect
-        revenueValue.style.transform = "scale(1.2)";
-        setTimeout(() => {
-          revenueValue.style.transform = "scale(1)";
-        }, 300);
-      }
+        metrics.forEach((metric, index) => {
+          if (tabData[index]) {
+            const valueEl = metric.querySelector(".metric-value");
+            const labelEl = metric.querySelector(".metric-label");
+            const changeEl = metric.querySelector(".metric-change");
 
-      // Highlight chart point
-      function highlightPoint(point) {
-        // Reset all points
-        document.querySelectorAll(".chart-point").forEach((p) => {
-          p.style.transform = "scale(1)";
-          p.style.background = "#e91e63";
-        });
-
-        // Highlight selected point
-        point.style.transform = "scale(1.8)";
-        point.style.background = "#ff6b6b";
-
-        // Update revenue value
-        const revenueValue = document.getElementById("revenue-value");
-        revenueValue.textContent = point.getAttribute("data-value");
-        revenueValue.style.color = "#ff6b6b";
-
-        setTimeout(() => {
-          revenueValue.style.color = "#e91e63";
-        }, 1000);
-      }
-
-      // Update donut chart
-      function updateDonut(label, value) {
-        document.getElementById("donut-label").textContent = label;
-        document.getElementById("donut-value").textContent = value;
-
-        // Add pulse effect
-        const donutCenter = document.querySelector(".donut-center");
-        donutCenter.style.transform = "translate(-50%, -50%) scale(1.1)";
-        setTimeout(() => {
-          donutCenter.style.transform = "translate(-50%, -50%) scale(1)";
-        }, 300);
-      }
-
-      // Animate KPI counter
-      function animateCounter(element, target) {
-        let current = 0;
-        const increment = target / 100;
-        const timer = setInterval(() => {
-          current += increment;
-          if (current >= target) {
-            current = target;
-            clearInterval(timer);
-          }
-
-          if (target > 1000) {
-            element.textContent = Math.floor(current).toLocaleString();
-          } else if (target > 100) {
-            element.textContent = "$" + Math.floor(current);
-          } else {
-            element.textContent =
-              Math.floor(current) + (target < 100 ? "" : "");
-          }
-        }, 20);
-      }
-
-      // Animate KPI card
-      function animateKPI(card) {
-        const valueElement = card.querySelector(".kpi-value");
-        const target = parseInt(valueElement.getAttribute("data-target"));
-        animateCounter(valueElement, target);
-
-        card.style.transform = "translateY(-15px) scale(1.05)";
-        setTimeout(() => {
-          card.style.transform = "translateY(0) scale(1)";
-        }, 300);
-      }
-
-      // Filter table
-      function filterTable(searchTerm) {
-        const table = document.getElementById("products-table");
-        const rows = table.getElementsByTagName("tr");
-
-        for (let i = 1; i < rows.length; i++) {
-          const row = rows[i];
-          const productName = row.cells[0].textContent.toLowerCase();
-
-          if (productName.includes(searchTerm.toLowerCase())) {
-            row.style.display = "";
-          } else {
-            row.style.display = "none";
-          }
-        }
-      }
-
-      // Sort table
-      function sortTable(columnIndex) {
-        const table = document.getElementById("products-table");
-        const tbody = table.getElementsByTagName("tbody")[0];
-        const rows = Array.from(tbody.getElementsByTagName("tr"));
-
-        rows.sort((a, b) => {
-          const aValue = a.cells[columnIndex].textContent;
-          const bValue = b.cells[columnIndex].textContent;
-
-          // Handle numeric values
-          if (columnIndex === 1 || columnIndex === 2) {
-            return (
-              parseFloat(bValue.replace(/[$,]/g, "")) -
-              parseFloat(aValue.replace(/[$,]/g, ""))
-            );
-          }
-
-          return aValue.localeCompare(bValue);
-        });
-
-        // Clear tbody and append sorted rows
-        tbody.innerHTML = "";
-        rows.forEach((row) => tbody.appendChild(row));
-
-        // Add visual feedback
-        const header = table.getElementsByTagName("th")[columnIndex];
-        header.style.background = "#e91e63";
-        header.style.color = "white";
-
-        setTimeout(() => {
-          header.style.background = "#f8f9fa";
-          header.style.color = "#333";
-        }, 1000);
-      }
-
-      // Scroll animations
-      function animateOnScroll() {
-        const elements = document.querySelectorAll(".scroll-animate");
-        elements.forEach((element) => {
-          const elementTop = element.getBoundingClientRect().top;
-          const elementVisible = 150;
-
-          if (elementTop < window.innerHeight - elementVisible) {
-            element.classList.add("animate");
+            // Animate the change
+            metric.style.opacity = "0.5";
+            setTimeout(() => {
+              valueEl.textContent = tabData[index].value;
+              labelEl.textContent = tabData[index].label;
+              changeEl.className = `metric-change ${tabData[index].change}`;
+              metric.style.opacity = "1";
+            }, 200);
           }
         });
       }
 
-      // Header scroll effect
-      function handleHeaderScroll() {
-        const header = document.querySelector("header");
-        if (window.scrollY > 100) {
-          header.style.background = "rgba(26, 35, 126, 0.95)";
-          header.style.backdropFilter = "blur(10px)";
-        } else {
-          header.style.background =
-            "linear-gradient(135deg, #1a237e 0%, #3949ab 100%)";
-          header.style.backdropFilter = "none";
-        }
+      // Feature cards hover effects
+      document.querySelectorAll(".feature-card").forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-10px) scale(1.02)";
+        });
+
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) scale(1)";
+        });
+      });
+
+      // Search functionality for products table
+      const searchInput = document.querySelector(".search-box input");
+      if (searchInput) {
+        searchInput.addEventListener("input", function () {
+          const searchTerm = this.value.toLowerCase();
+          const tableRows = document.querySelectorAll(
+            ".products-table tbody tr"
+          );
+
+          tableRows.forEach((row) => {
+            const productName = row
+              .querySelector("td")
+              .textContent.toLowerCase();
+            if (productName.includes(searchTerm)) {
+              row.style.display = "";
+              row.style.opacity = "1";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        });
       }
 
-      // Smooth scrolling for navigation links
+      // Contact form submission
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const submitButton = this.querySelector(".submit-button");
+          const originalText = submitButton.textContent;
+
+          // Show loading state
+          submitButton.textContent = "Sending...";
+          submitButton.style.background =
+            "linear-gradient(45deg, #6b7280, #9ca3af)";
+
+          // Simulate form submission
+          setTimeout(() => {
+            submitButton.textContent = "Message Sent! ✓";
+            submitButton.style.background =
+              "linear-gradient(45deg, #10b981, #059669)";
+
+            // Reset form
+            this.reset();
+
+            // Reset button after 3 seconds
+            setTimeout(() => {
+              submitButton.textContent = originalText;
+              submitButton.style.background =
+                "linear-gradient(45deg, #ff6b6b, #4ecdc4)";
+            }, 3000);
+          }, 2000);
+        });
+
+      // Animate elements on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements for scroll animations
+      document
+        .querySelectorAll(".feature-card, .metric-card, .hero-stat")
+        .forEach((el) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(30px)";
+          el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+          observer.observe(el);
+        });
+
+      // Add dynamic particle generation
+      function createParticle() {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        particle.style.left = Math.random() * 100 + "%";
+        particle.style.animationDelay = Math.random() * 2 + "s";
+        particle.style.animationDuration = Math.random() * 3 + 6 + "s";
+
+        document.querySelector(".floating-objects").appendChild(particle);
+
+        // Remove particle after animation
+        setTimeout(() => {
+          particle.remove();
+        }, 10000);
+      }
+
+      // Generate particles periodically
+      setInterval(createParticle, 2000);
+
+      // Add smooth scrolling for navigation links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -1347,70 +2265,6 @@
           }
         });
       });
-
-      // Event listeners
-      window.addEventListener("scroll", () => {
-        animateOnScroll();
-        handleHeaderScroll();
-      });
-
-      window.addEventListener("load", () => {
-        animateOnScroll();
-
-        // Auto-animate KPIs when page loads
-        setTimeout(() => {
-          document.querySelectorAll(".kpi-card").forEach((card) => {
-            animateKPI(card);
-          });
-        }, 1000);
-      });
-
-      // Real-time data simulation
-      function simulateRealTimeData() {
-        const revenueValue = document.getElementById("revenue-value");
-        const currentValue = parseFloat(
-          revenueValue.textContent.replace(/[$M]/g, "")
-        );
-        const variation = (Math.random() - 0.5) * 0.2;
-        const newValue = Math.max(0, currentValue + variation);
-
-        revenueValue.textContent = "$" + newValue.toFixed(1) + "M";
-
-        // Update chart points randomly
-        const chartPoints = document.querySelectorAll(".chart-point");
-        chartPoints.forEach((point) => {
-          const currentHeight = parseFloat(point.style.bottom);
-          const newHeight = Math.max(
-            20,
-            Math.min(90, currentHeight + (Math.random() - 0.5) * 10)
-          );
-          point.style.bottom = newHeight + "%";
-
-          const value = Math.floor(newValue * (newHeight / 100) * 1000);
-          point.setAttribute(
-            "data-value",
-            "$" + (value / 1000).toFixed(1) + "K"
-          );
-        });
-      }
-
-      // Start real-time simulation
-      setInterval(simulateRealTimeData, 5000);
-
-      // Add interactive hover effects
-      document.querySelectorAll(".chart-point").forEach((point) => {
-        point.addEventListener("mouseenter", function () {
-          this.style.transform = "scale(1.5)";
-          this.style.zIndex = "10";
-        });
-
-        point.addEventListener("mouseleave", function () {
-          if (!this.classList.contains("active")) {
-            this.style.transform = "scale(1)";
-            this.style.zIndex = "1";
-          }
-        });
-      });
     </script>
     <script>
       (function () {
@@ -1419,7 +2273,7 @@
           if (b) {
             var d = b.createElement("script");
             d.innerHTML =
-              "window.__CF$cv$params={r:'98f600060625c7d4',t:'MTc2MDYwMTM5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+              "window.__CF$cv$params={r:'9900ddabf6bc087b',t:'MTc2MDcxNTMyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
             b.getElementsByTagName("head")[0].appendChild(d);
           }
         }
