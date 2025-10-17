@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance - Zoho Finance Plus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        box-sizing: border-box;
+        overflow-x: hidden;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 25%,
+          #f093fb 50%,
+          #f5576c 75%,
+          #4facfe 100%
+        );
+        background-size: 400% 400%;
+        animation: gradientShift 8s ease infinite;
+        position: relative;
+        overflow: hidden;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .animated-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        animation: bgMove 20s linear infinite;
+      }
+
+      @keyframes bgMove {
+        0% {
+          transform: translateX(0) translateY(0);
+        }
+        100% {
+          transform: translateX(-100px) translateY(-100px);
+        }
+      }
+
+      .floating-elements {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .floating-shape {
+        position: absolute;
+        opacity: 0.1;
+        animation: floatAround 15s linear infinite;
+      }
+
+      .floating-shape:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .floating-shape:nth-child(2) {
+        left: 20%;
+        animation-delay: -2s;
+      }
+      .floating-shape:nth-child(3) {
+        left: 30%;
+        animation-delay: -4s;
+      }
+      .floating-shape:nth-child(4) {
+        left: 40%;
+        animation-delay: -6s;
+      }
+      .floating-shape:nth-child(5) {
+        left: 50%;
+        animation-delay: -8s;
+      }
+      .floating-shape:nth-child(6) {
+        left: 60%;
+        animation-delay: -10s;
+      }
+      .floating-shape:nth-child(7) {
+        left: 70%;
+        animation-delay: -12s;
+      }
+      .floating-shape:nth-child(8) {
+        left: 80%;
+        animation-delay: -14s;
+      }
+
+      @keyframes floatAround {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+        }
+      }
+
+      .flying-plane {
+        position: fixed;
+        top: 20%;
+        right: -100px;
+        z-index: 1000;
+        font-size: 2rem;
+        animation: flyAcross 12s linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes flyAcross {
+        0% {
+          right: -100px;
+          transform: rotate(0deg);
+        }
+        50% {
+          right: 50%;
+          transform: rotate(5deg);
+        }
+        100% {
+          right: 100vw;
+          transform: rotate(0deg);
+        }
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .card-hover {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-hover::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .card-hover:hover::before {
+        left: 100%;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      }
+
+      .mobile-menu {
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .mobile-menu.open {
+        transform: translateX(0);
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        33% {
+          transform: translateY(-15px) rotate(1deg);
+        }
+        66% {
+          transform: translateY(-5px) rotate(-1deg);
+        }
+      }
+
+      .floating {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .feature-icon {
+        background: linear-gradient(
+          135deg,
+          #ff6b6b,
+          #4ecdc4,
+          #45b7d1,
+          #96ceb4,
+          #feca57
+        );
+        background-size: 300% 300%;
+        animation: gradientRotate 4s ease infinite;
+      }
+
+      @keyframes gradientRotate {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .pulse-ring {
+        position: absolute;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        animation: pulse 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(0.33);
+          opacity: 1;
+        }
+        80%,
+        100% {
+          transform: scale(2.5);
+          opacity: 0;
+        }
+      }
+
+      .morphing-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        animation: morph 8s ease-in-out infinite;
+        opacity: 0.7;
+      }
+
+      @keyframes morph {
+        0%,
+        100% {
+          border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        50% {
+          border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        }
+      }
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        animation: particleFloat 6s linear infinite;
+      }
+
+      @keyframes particleFloat {
+        0% {
+          transform: translateY(100vh) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) translateX(100px);
+          opacity: 0;
+        }
+      }
+
+      .glow-effect {
+        box-shadow: 0 0 20px rgba(79, 172, 254, 0.6);
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          box-shadow: 0 0 20px rgba(79, 172, 254, 0.6);
+        }
+        to {
+          box-shadow: 0 0 30px rgba(79, 172, 254, 0.8),
+            0 0 40px rgba(79, 172, 254, 0.6);
+        }
+      }
+
+      .rainbow-text {
+        background: linear-gradient(
+          45deg,
+          #ff6b6b,
+          #4ecdc4,
+          #45b7d1,
+          #96ceb4,
+          #feca57,
+          #ff9ff3,
+          #54a0ff
+        );
+        background-size: 400% 400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: rainbow 4s ease infinite;
+      }
+
+      @keyframes rainbow {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .hover-lift {
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .scroll-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 4px;
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+        z-index: 9999;
+        transition: width 0.3s ease;
+      }
+
+      .floating-icons {
+        position: absolute;
+        font-size: 1.5rem;
+        opacity: 0.6;
+        animation: floatIcon 8s ease-in-out infinite;
+      }
+
+      @keyframes floatIcon {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-20px) rotate(90deg);
+        }
+        50% {
+          transform: translateY(-10px) rotate(180deg);
+        }
+        75% {
+          transform: translateY(-15px) rotate(270deg);
+        }
+      }
+
+      .nav-item {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .nav-item::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+        transition: width 0.3s ease;
+      }
+
+      .nav-item:hover::after {
+        width: 100%;
+      }
+
+      .stats-counter {
+        font-variant-numeric: tabular-nums;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: textShimmer 3s ease-in-out infinite;
+      }
+
+      @keyframes textShimmer {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .integration-card {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+  <body class="font-sans">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scroll-indicator"></div>
+
+    <!-- Flying Plane -->
+    <div class="flying-plane">✈️</div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg fixed w-full top-0 z-50">
+      <nav class="container mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+          <!-- Logo -->
+          <div class="flex items-center space-x-2">
+            <div
+              class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-lg">Z</span>
+            </div>
+            <span class="text-2xl font-bold text-gray-800"
+              >Zoho Finance Plus</span
+            >
+          </div>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="/"
+              class="nav-item text-gray-700 hover:text-blue-600 font-medium"
+              >Home</a
+            >
+            <a
+              href="/finance"
+              class="nav-item text-blue-600 font-medium rainbow-text"
+              >Finance</a
+            >
+            <a
+              href="/analytics"
+              class="nav-item text-gray-700 hover:text-blue-600 font-medium rainbow-text"
+              >Analytics</a
+            >
+            <a
+              href="/books"
+              class="nav-item text-gray-700 hover:text-blue-600 font-medium rainbow-text"
+              >Books</a
+            >
+            <a
+              href="#features"
+              class="nav-item text-gray-700 hover:text-blue-600 font-medium"
+              >Features</a
+            >
+            <a
+              href="#pricing"
+              class="nav-item text-gray-700 hover:text-blue-600 font-medium"
+              >Pricing</a
+            >
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="hidden md:flex items-center space-x-4">
+            <button class="text-blue-600 hover:text-blue-700 font-medium">
+              Sign In
+            </button>
+            <button
+              class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+            >
+              Try Free
+            </button>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="mobile-menu md:hidden fixed inset-y-0 left-0 w-64 bg-white shadow-xl z-50"
+      >
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center space-x-2">
+              <div
+                class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center"
+              >
+                <span class="text-white font-bold text-lg">Z</span>
+              </div>
+              <span class="text-lg font-bold text-gray-800">Finance Plus</span>
+            </div>
+            <button id="close-menu" class="text-gray-500">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <nav class="space-y-4">
+            <a
+              href="/"
+              class="block text-gray-700 hover:text-blue-600 font-medium"
+              >Home</a
+            >
+            <a href="/finance" class="block text-blue-600 font-medium"
+              >Finance</a
+            >
+            <a
+              href="/analytics"
+              class="block text-gray-700 hover:text-blue-600 font-medium"
+              >Analytics</a
+            >
+            <a
+              href="/books"
+              class="block text-gray-700 hover:text-blue-600 font-medium"
+              >Books</a
+            >
+            <a
+              href="#features"
+              class="block text-gray-700 hover:text-blue-600 font-medium"
+              >Features</a
+            >
+            <a
+              href="#pricing"
+              class="block text-gray-700 hover:text-blue-600 font-medium"
+              >Pricing</a
+            >
+            <hr class="my-4" />
+            <a href="#" class="block text-blue-600 font-medium">Sign In</a>
+            <button
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium"
+            >
+              Try Free
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="pt-16">
+      <!-- Hero Section -->
+      <section class="gradient-bg text-white py-20 overflow-hidden">
+        <!-- Animated Background -->
+        <div class="animated-bg"></div>
+
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+          <div class="floating-shape">💰</div>
+          <div class="floating-shape">📊</div>
+          <div class="floating-shape">💳</div>
+          <div class="floating-shape">📈</div>
+          <div class="floating-shape">🏦</div>
+          <div class="floating-shape">💼</div>
+          <div class="floating-shape">📋</div>
+          <div class="floating-shape">⚡</div>
+        </div>
+
+        <!-- Morphing Blobs -->
+        <div class="morphing-blob w-64 h-64 bg-purple-400 top-10 left-10"></div>
+        <div
+          class="morphing-blob w-48 h-48 bg-pink-400 top-32 right-20"
+          style="animation-delay: -2s"
+        ></div>
+        <div
+          class="morphing-blob w-32 h-32 bg-blue-400 bottom-20 left-1/3"
+          style="animation-delay: -4s"
+        ></div>
+
+        <!-- Particles -->
+        <div class="particle" style="left: 10%; animation-delay: 0s"></div>
+        <div class="particle" style="left: 20%; animation-delay: -1s"></div>
+        <div class="particle" style="left: 30%; animation-delay: -2s"></div>
+        <div class="particle" style="left: 40%; animation-delay: -3s"></div>
+        <div class="particle" style="left: 50%; animation-delay: -4s"></div>
+        <div class="particle" style="left: 60%; animation-delay: -5s"></div>
+        <div class="particle" style="left: 70%; animation-delay: -6s"></div>
+        <div class="particle" style="left: 80%; animation-delay: -7s"></div>
+        <div class="particle" style="left: 90%; animation-delay: -8s"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="fade-in">
+              <h1
+                class="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+                id="hero-title"
+              >
+                Advanced Financial Management & Analytics
+              </h1>
+              <p class="text-xl mb-8 opacity-90 leading-relaxed">
+                Take control of your finances with powerful analytics, automated
+                reporting, and intelligent insights. Make data-driven decisions
+                that drive growth.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                <button
+                  class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+                >
+                  Start Financial Analysis
+                </button>
+                <button
+                  class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors"
+                >
+                  View Demo
+                </button>
+              </div>
+              <div class="flex items-center space-x-6 text-sm opacity-90">
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Real-time insights
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  AI-powered forecasting
+                </div>
+              </div>
+            </div>
+            <div class="fade-in relative">
+              <!-- Floating Icons Around Dashboard -->
+              <div
+                class="floating-icons"
+                style="top: -20px; left: -30px; animation-delay: 0s"
+              >
+                💎
+              </div>
+              <div
+                class="floating-icons"
+                style="top: 50px; right: -40px; animation-delay: -2s"
+              >
+                🚀
+              </div>
+              <div
+                class="floating-icons"
+                style="bottom: 30px; left: -20px; animation-delay: -4s"
+              >
+                ⭐
+              </div>
+              <div
+                class="floating-icons"
+                style="bottom: -10px; right: 20px; animation-delay: -6s"
+              >
+                🎯
+              </div>
+
+              <!-- Financial Dashboard -->
+              <div
+                class="floating bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 shadow-2xl glow-effect relative overflow-hidden"
+              >
+                <!-- Pulse Rings -->
+                <div class="pulse-ring w-20 h-20 top-4 right-4"></div>
+                <div
+                  class="pulse-ring w-16 h-16 bottom-8 left-8"
+                  style="animation-delay: -1s"
+                ></div>
+
+                <!-- Financial Metrics -->
+                <div class="grid grid-cols-2 gap-4 mb-6 relative z-10">
+                  <div
+                    class="bg-gradient-to-br from-green-400 to-blue-500 bg-opacity-90 rounded-lg p-4 text-center card-hover"
+                  >
+                    <div
+                      class="text-2xl font-bold rainbow-text"
+                      id="revenue-counter"
+                    >
+                      ₹5.2M
+                    </div>
+                    <div class="text-sm opacity-90">Total Revenue 📈</div>
+                  </div>
+                  <div
+                    class="bg-gradient-to-br from-purple-400 to-pink-500 bg-opacity-90 rounded-lg p-4 text-center card-hover"
+                  >
+                    <div class="text-2xl font-bold rainbow-text">₹1.8M</div>
+                    <div class="text-sm opacity-90">Profit Margin 💰</div>
+                  </div>
+                  <div
+                    class="bg-gradient-to-br from-yellow-400 to-orange-500 bg-opacity-90 rounded-lg p-4 text-center card-hover"
+                  >
+                    <div class="text-2xl font-bold rainbow-text">24%</div>
+                    <div class="text-sm opacity-90">Growth Rate 🚀</div>
+                  </div>
+                  <div
+                    class="bg-gradient-to-br from-cyan-400 to-teal-500 bg-opacity-90 rounded-lg p-4 text-center card-hover"
+                  >
+                    <div class="text-2xl font-bold rainbow-text">₹890K</div>
+                    <div class="text-sm opacity-90">Cash Flow 💳</div>
+                  </div>
+                </div>
+
+                <!-- Advanced Chart Visualization -->
+                <div class="mb-6">
+                  <svg class="w-full h-24" viewBox="0 0 400 100">
+                    <defs>
+                      <linearGradient
+                        id="financeGradient"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="0%"
+                      >
+                        <stop
+                          offset="0%"
+                          style="stop-color: #ff6b6b; stop-opacity: 1"
+                        />
+                        <stop
+                          offset="25%"
+                          style="stop-color: #4ecdc4; stop-opacity: 1"
+                        />
+                        <stop
+                          offset="50%"
+                          style="stop-color: #45b7d1; stop-opacity: 1"
+                        />
+                        <stop
+                          offset="75%"
+                          style="stop-color: #96ceb4; stop-opacity: 1"
+                        />
+                        <stop
+                          offset="100%"
+                          style="stop-color: #feca57; stop-opacity: 1"
+                        />
+                      </linearGradient>
+                      <linearGradient
+                        id="areaGradient"
+                        x1="0%"
+                        y1="0%"
+                        x2="0%"
+                        y2="100%"
+                      >
+                        <stop
+                          offset="0%"
+                          style="stop-color: #4ecdc4; stop-opacity: 0.8"
+                        />
+                        <stop
+                          offset="100%"
+                          style="stop-color: #4ecdc4; stop-opacity: 0.1"
+                        />
+                      </linearGradient>
+                    </defs>
+
+                    <!-- Area fill -->
+                    <path
+                      d="M0,80 L50,65 L100,45 L150,35 L200,40 L250,25 L300,20 L350,15 L400,10 L400,100 L0,100 Z"
+                      fill="url(#areaGradient)"
+                      opacity="0.6"
+                    />
+
+                    <!-- Main line -->
+                    <polyline
+                      fill="none"
+                      stroke="url(#financeGradient)"
+                      stroke-width="4"
+                      points="0,80 50,65 100,45 150,35 200,40 250,25 300,20 350,15 400,10"
+                      style="
+                        filter: drop-shadow(0 0 8px rgba(79, 172, 254, 0.6));
+                      "
+                    >
+                      <animate
+                        attributeName="stroke-dasharray"
+                        values="0,2000;2000,0;0,2000"
+                        dur="6s"
+                        repeatCount="indefinite"
+                      />
+                    </polyline>
+
+                    <!-- Animated data points -->
+                    <circle cx="100" cy="45" r="4" fill="#4ecdc4">
+                      <animate
+                        attributeName="r"
+                        values="4;8;4"
+                        dur="3s"
+                        repeatCount="indefinite"
+                      />
+                      <animate
+                        attributeName="opacity"
+                        values="0.8;1;0.8"
+                        dur="3s"
+                        repeatCount="indefinite"
+                      />
+                    </circle>
+                    <circle cx="200" cy="40" r="4" fill="#45b7d1">
+                      <animate
+                        attributeName="r"
+                        values="4;8;4"
+                        dur="3s"
+                        repeatCount="indefinite"
+                        begin="1s"
+                      />
+                      <animate
+                        attributeName="opacity"
+                        values="0.8;1;0.8"
+                        dur="3s"
+                        repeatCount="indefinite"
+                        begin="1s"
+                      />
+                    </circle>
+                    <circle cx="300" cy="20" r="4" fill="#feca57">
+                      <animate
+                        attributeName="r"
+                        values="4;8;4"
+                        dur="3s"
+                        repeatCount="indefinite"
+                        begin="2s"
+                      />
+                      <animate
+                        attributeName="opacity"
+                        values="0.8;1;0.8"
+                        dur="3s"
+                        repeatCount="indefinite"
+                        begin="2s"
+                      />
+                    </circle>
+                  </svg>
+                </div>
+
+                <div class="text-center">
+                  <div
+                    class="inline-flex items-center space-x-2 bg-gradient-to-r from-green-400 to-blue-500 bg-opacity-30 rounded-full px-6 py-3 backdrop-blur-sm"
+                  >
+                    <div
+                      class="w-3 h-3 bg-green-400 rounded-full animate-pulse"
+                    ></div>
+                    <span class="text-sm font-medium"
+                      >Live Financial Analytics</span
+                    >
+                    <div
+                      class="w-3 h-3 bg-blue-400 rounded-full animate-pulse"
+                      style="animation-delay: 0.5s"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Financial Features Section -->
+      <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2
+              class="text-4xl font-bold text-gray-800 mb-4 fade-in rainbow-text"
+            >
+              Comprehensive Financial Management
+            </h2>
+            <p class="text-xl text-gray-600 fade-in max-w-3xl mx-auto">
+              Advanced tools and analytics to manage every aspect of your
+              business finances with precision and insight.
+            </p>
+          </div>
+
+          <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            <!-- Cash Flow Management -->
+            <div
+              class="bg-white rounded-xl p-8 shadow-lg card-hover fade-in border border-gray-100"
+            >
+              <div
+                class="w-16 h-16 feature-icon rounded-lg flex items-center justify-center mb-6 text-white"
+              >
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-4">
+                Cash Flow Analytics
+              </h3>
+              <p class="text-gray-600 mb-6">
+                Monitor and forecast cash flow with AI-powered predictions and
+                real-time tracking.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Real-time cash position
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Predictive forecasting
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Scenario planning
+                </li>
+              </ul>
+            </div>
+
+            <!-- Budget Management -->
+            <div
+              class="bg-white rounded-xl p-8 shadow-lg card-hover fade-in border border-gray-100"
+            >
+              <div
+                class="w-16 h-16 feature-icon rounded-lg flex items-center justify-center mb-6 text-white"
+              >
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-4">
+                Smart Budgeting
+              </h3>
+              <p class="text-gray-600 mb-6">
+                Create dynamic budgets with variance analysis and automated
+                alerts for better control.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Dynamic budget creation
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Variance analysis
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Automated alerts
+                </li>
+              </ul>
+            </div>
+
+            <!-- Financial Reporting -->
+            <div
+              class="bg-white rounded-xl p-8 shadow-lg card-hover fade-in border border-gray-100"
+            >
+              <div
+                class="w-16 h-16 feature-icon rounded-lg flex items-center justify-center mb-6 text-white"
+              >
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-4">
+                Advanced Reporting
+              </h3>
+              <p class="text-gray-600 mb-6">
+                Generate comprehensive financial reports with customizable
+                dashboards and insights.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Custom dashboards
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Automated reports
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Interactive charts
+                </li>
+              </ul>
+            </div>
+
+            <!-- Risk Management -->
+            <div
+              class="bg-white rounded-xl p-8 shadow-lg card-hover fade-in border border-gray-100"
+            >
+              <div
+                class="w-16 h-16 feature-icon rounded-lg flex items-center justify-center mb-6 text-white"
+              >
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-4">
+                Risk Assessment
+              </h3>
+              <p class="text-gray-600 mb-6">
+                Identify and mitigate financial risks with advanced analytics
+                and monitoring tools.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Risk scoring
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Early warnings
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Compliance tracking
+                </li>
+              </ul>
+            </div>
+
+            <!-- Investment Tracking -->
+            <div
+              class="bg-white rounded-xl p-8 shadow-lg card-hover fade-in border border-gray-100"
+            >
+              <div
+                class="w-16 h-16 feature-icon rounded-lg flex items-center justify-center mb-6 text-white"
+              >
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-4">
+                Investment Analytics
+              </h3>
+              <p class="text-gray-600 mb-6">
+                Track and analyze investment performance with portfolio
+                management tools.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Portfolio tracking
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  ROI analysis
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Performance metrics
+                </li>
+              </ul>
+            </div>
+
+            <!-- Tax Management -->
+            <div
+              class="bg-white rounded-xl p-8 shadow-lg card-hover fade-in border border-gray-100"
+            >
+              <div
+                class="w-16 h-16 feature-icon rounded-lg flex items-center justify-center mb-6 text-white"
+              >
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-4">
+                Tax Optimization
+              </h3>
+              <p class="text-gray-600 mb-6">
+                Streamline tax planning and compliance with automated
+                calculations and filing.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Automated calculations
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Compliance monitoring
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-4 h-4 text-green-500 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Filing assistance
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Financial Stats Section -->
+      <section
+        class="py-16 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 relative overflow-hidden"
+      >
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0">
+          <div class="floating-shape absolute top-10 left-10 text-4xl">💎</div>
+          <div class="floating-shape absolute top-20 right-20 text-3xl">📊</div>
+          <div class="floating-shape absolute bottom-10 left-1/4 text-2xl">
+            💰
+          </div>
+          <div class="floating-shape absolute bottom-20 right-1/3 text-3xl">
+            🚀
+          </div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="grid md:grid-cols-4 gap-8 text-center">
+            <div
+              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
+            >
+              <div class="text-5xl font-bold stats-counter mb-3">₹10B+</div>
+              <div class="text-white font-medium">Assets Managed 💼</div>
+              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
+                <div
+                  class="bg-yellow-400 h-2 rounded-full"
+                  style="width: 95%; animation: fillBar 2s ease-in-out"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
+            >
+              <div class="text-5xl font-bold stats-counter mb-3">25K+</div>
+              <div class="text-white font-medium">Financial Reports 📈</div>
+              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
+                <div
+                  class="bg-green-400 h-2 rounded-full"
+                  style="
+                    width: 88%;
+                    animation: fillBar 2s ease-in-out 0.5s both;
+                  "
+                ></div>
+              </div>
+            </div>
+            <div
+              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
+            >
+              <div class="text-5xl font-bold stats-counter mb-3">99.8%</div>
+              <div class="text-white font-medium">Accuracy Rate ✅</div>
+              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
+                <div
+                  class="bg-blue-400 h-2 rounded-full"
+                  style="width: 99%; animation: fillBar 2s ease-in-out 1s both"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
+            >
+              <div class="text-5xl font-bold stats-counter mb-3">24/7</div>
+              <div class="text-white font-medium">Real-time Monitoring 🔍</div>
+              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
+                <div
+                  class="bg-purple-400 h-2 rounded-full"
+                  style="
+                    width: 100%;
+                    animation: fillBar 2s ease-in-out 1.5s both;
+                  "
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style>
+          @keyframes fillBar {
+            from {
+              width: 0%;
+            }
+            to {
+              width: var(--target-width);
+            }
+          }
+        </style>
+      </section>
+
+      <!-- Integration Section -->
+      <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2
+              class="text-4xl font-bold text-gray-800 mb-4 fade-in rainbow-text"
+            >
+              Financial Integrations
+            </h2>
+            <p class="text-xl text-gray-600 fade-in">
+              Connect with leading financial institutions and platforms
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div
+              class="integration-card rounded-xl p-6 text-center card-hover fade-in glow-effect"
+            >
+              <div
+                class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center floating"
+              >
+                <span class="text-2xl">🏦</span>
+              </div>
+              <h3 class="font-semibold mb-2 rainbow-text">Banking APIs</h3>
+              <p class="text-sm opacity-90">Real-time bank data sync</p>
+              <div class="mt-3 flex justify-center space-x-1">
+                <div
+                  class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"
+                  style="animation-delay: 0.2s"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-pink-400 rounded-full animate-pulse"
+                  style="animation-delay: 0.4s"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              class="integration-card rounded-xl p-6 text-center card-hover fade-in glow-effect"
+            >
+              <div
+                class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-400 to-teal-500 rounded-lg flex items-center justify-center floating"
+                style="animation-delay: -1s"
+              >
+                <span class="text-2xl">📊</span>
+              </div>
+              <h3 class="font-semibold mb-2 rainbow-text">Market Data</h3>
+              <p class="text-sm opacity-90">Live market feeds</p>
+              <div class="mt-3 flex justify-center space-x-1">
+                <div
+                  class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"
+                  style="animation-delay: 0.2s"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"
+                  style="animation-delay: 0.4s"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              class="integration-card rounded-xl p-6 text-center card-hover fade-in glow-effect"
+            >
+              <div
+                class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center floating"
+                style="animation-delay: -2s"
+              >
+                <span class="text-2xl">💳</span>
+              </div>
+              <h3 class="font-semibold mb-2 rainbow-text">Payment Systems</h3>
+              <p class="text-sm opacity-90">Integrated payments</p>
+              <div class="mt-3 flex justify-center space-x-1">
+                <div
+                  class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-pink-400 rounded-full animate-pulse"
+                  style="animation-delay: 0.2s"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-red-400 rounded-full animate-pulse"
+                  style="animation-delay: 0.4s"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              class="integration-card rounded-xl p-6 text-center card-hover fade-in glow-effect"
+            >
+              <div
+                class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center floating"
+                style="animation-delay: -3s"
+              >
+                <span class="text-2xl">📋</span>
+              </div>
+              <h3 class="font-semibold mb-2 rainbow-text">Tax Platforms</h3>
+              <p class="text-sm opacity-90">Automated filing</p>
+              <div class="mt-3 flex justify-center space-x-1">
+                <div
+                  class="w-2 h-2 bg-orange-400 rounded-full animate-pulse"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-red-400 rounded-full animate-pulse"
+                  style="animation-delay: 0.2s"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
+                  style="animation-delay: 0.4s"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center fade-in">
+            <button
+              class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+            >
+              Explore All Integrations
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-20 gradient-bg text-white">
+        <div class="container mx-auto px-4 text-center">
+          <h2 class="text-4xl font-bold mb-6 fade-in">
+            Transform Your Financial Management
+          </h2>
+          <p class="text-xl mb-8 opacity-90 fade-in">
+            Experience the power of advanced financial analytics and automation
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in">
+            <button
+              class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+            >
+              Start Free Trial
+            </button>
+            <button
+              class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors"
+            >
+              Request Demo
+            </button>
+          </div>
+          <div class="mt-6 text-sm opacity-80">
+            Advanced analytics • Real-time insights • Expert support
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-5 gap-8">
+          <div class="md:col-span-2">
+            <div class="flex items-center space-x-2 mb-6">
+              <div
+                class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center"
+              >
+                <span class="text-white font-bold text-lg">Z</span>
+              </div>
+              <span class="text-2xl font-bold">Zoho Finance Plus</span>
+            </div>
+            <p class="text-gray-400 mb-6 max-w-md">
+              Advanced financial management and analytics platform for modern
+              businesses. Make smarter financial decisions with AI-powered
+              insights.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold mb-6">Finance Tools</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Cash Flow</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Budgeting</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Reporting</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Risk Management</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Tax Planning</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold mb-6">Analytics</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Financial KPIs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Forecasting</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Benchmarking</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Trend Analysis</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Custom Reports</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold mb-6">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Help Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Documentation</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Training</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
+        >
+          <p class="text-gray-400 text-sm">
+            &copy; 2024 Zoho Finance Plus. All rights reserved.
+          </p>
+          <div class="flex space-x-6 mt-4 md:mt-0">
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white text-sm transition-colors"
+              >Terms</a
+            >
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white text-sm transition-colors"
+              >Privacy</a
+            >
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white text-sm transition-colors"
+              >Cookies</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll Progress Indicator
+      const scrollIndicator = document.getElementById("scroll-indicator");
+
+      function updateScrollProgress() {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        scrollIndicator.style.width = scrollPercent + "%";
+      }
+
+      window.addEventListener("scroll", updateScrollProgress);
+
+      // Enhanced Smooth Scrolling with Easing
+      function smoothScrollTo(target, duration = 1000) {
+        const targetPosition = target.offsetTop - 80;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+
+        function animation(currentTime) {
+          if (startTime === null) startTime = currentTime;
+          const timeElapsed = currentTime - startTime;
+          const run = easeInOutQuad(
+            timeElapsed,
+            startPosition,
+            distance,
+            duration
+          );
+          window.scrollTo(0, run);
+          if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+
+        function easeInOutQuad(t, b, c, d) {
+          t /= d / 2;
+          if (t < 1) return (c / 2) * t * t + b;
+          t--;
+          return (-c / 2) * (t * (t - 2) - 1) + b;
+        }
+
+        requestAnimationFrame(animation);
+      }
+
+      // Create floating particles dynamically
+      function createFloatingParticles() {
+        const particleContainer = document.querySelector(".gradient-bg");
+        for (let i = 0; i < 20; i++) {
+          const particle = document.createElement("div");
+          particle.className = "particle";
+          particle.style.left = Math.random() * 100 + "%";
+          particle.style.animationDelay = Math.random() * 6 + "s";
+          particle.style.animationDuration = Math.random() * 3 + 4 + "s";
+          particleContainer.appendChild(particle);
+        }
+      }
+
+      // Initialize particles
+      createFloatingParticles();
+
+      // Mobile menu functionality
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const closeMenu = document.getElementById("close-menu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.add("open");
+      });
+
+      closeMenu.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !mobileMenu.contains(e.target) &&
+          !mobileMenuBtn.contains(e.target)
+        ) {
+          mobileMenu.classList.remove("open");
+        }
+      });
+
+      // Enhanced smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            smoothScrollTo(target, 1200);
+            // Close mobile menu if open
+            mobileMenu.classList.remove("open");
+          }
+        });
+      });
+
+      // Fade in animation on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      // Observe all fade-in elements
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Add interactive hover effects to cards
+      document.querySelectorAll(".card-hover").forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-8px)";
+          this.style.filter = "brightness(1.1) saturate(1.2)";
+        });
+
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+          this.style.filter = "brightness(1) saturate(1)";
+        });
+      });
+
+      // Typewriter effect for main heading
+      function typeWriter(element, text, speed = 100) {
+        let i = 0;
+        element.innerHTML = "";
+
+        function type() {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          }
+        }
+        type();
+      }
+
+      // Initialize typewriter effect when hero section is visible
+      const heroTitle = document.getElementById("hero-title");
+      const heroText = heroTitle.textContent;
+
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              typeWriter(heroTitle, heroText, 50);
+            }, 500);
+            heroObserver.unobserve(entry.target);
+          }
+        });
+      });
+
+      heroObserver.observe(heroTitle);
+
+      // Simulate real-time updates in financial dashboard
+      setInterval(() => {
+        const revenueElement = document.getElementById("revenue-counter");
+        if (revenueElement) {
+          const currentValue = parseFloat(
+            revenueElement.textContent.replace(/[^\d.]/g, "")
+          );
+          const newValue = currentValue + (Math.random() * 0.2 - 0.1);
+          revenueElement.textContent = `₹${newValue.toFixed(1)}M`;
+        }
+      }, 4000);
+
+      // Parallax effect for floating elements
+      window.addEventListener("scroll", () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll(
+          ".floating-shape, .morphing-blob"
+        );
+
+        parallaxElements.forEach((element, index) => {
+          const speed = 0.5 + index * 0.1;
+          const yPos = -(scrolled * speed);
+          element.style.transform = `translateY(${yPos}px) rotate(${
+            scrolled * 0.1
+          }deg)`;
+        });
+      });
+
+      // Interactive cursor effect
+      document.addEventListener("mousemove", (e) => {
+        const cursor =
+          document.querySelector(".cursor-glow") || createCursorGlow();
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
+
+      function createCursorGlow() {
+        const cursor = document.createElement("div");
+        cursor.className = "cursor-glow";
+        cursor.style.cssText = `
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                background: radial-gradient(circle, rgba(79, 172, 254, 0.8), transparent);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transition: transform 0.1s ease;
+            `;
+        document.body.appendChild(cursor);
+        return cursor;
+      }
+
+      // Add random floating emojis
+      function createRandomFloatingEmoji() {
+        const emojis = [
+          "💰",
+          "📊",
+          "💳",
+          "📈",
+          "🏦",
+          "💼",
+          "📋",
+          "⚡",
+          "🎯",
+          "🚀",
+          "⭐",
+          "💎",
+        ];
+        const emoji = document.createElement("div");
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.cssText = `
+                position: fixed;
+                font-size: 2rem;
+                pointer-events: none;
+                z-index: 1000;
+                animation: randomFloat 8s linear infinite;
+                left: ${Math.random() * 100}vw;
+                top: 100vh;
+                opacity: 0.7;
+            `;
+
+        document.body.appendChild(emoji);
+
+        setTimeout(() => {
+          emoji.remove();
+        }, 8000);
+      }
+
+      // Create random floating emojis periodically
+      setInterval(createRandomFloatingEmoji, 3000);
+
+      // Add CSS for random float animation
+      const randomFloatStyle = document.createElement("style");
+      randomFloatStyle.textContent = `
+            @keyframes randomFloat {
+                0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+                10% { opacity: 0.7; }
+                90% { opacity: 0.7; }
+                100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            }
+        `;
+      document.head.appendChild(randomFloatStyle);
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'9900028990d3087b',t:'MTc2MDcwNjM1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
