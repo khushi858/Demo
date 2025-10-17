@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zoho Analytics - Business Intelligence Platform</title>
+    <style>
+      body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      /* Header Styles */
+      header {
+        background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+      }
+
+      .logo svg {
+        margin-right: 0.5rem;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+
+      .mobile-menu span {
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 3px 0;
+        transition: 0.3s;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+        color: white;
+        padding: 120px 0 80px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+      }
+
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        animation: fadeInUp 1s ease;
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease 0.2s both;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeInUp 1s ease 0.4s both;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: #ff6b6b;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #ff5252;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        color: #e91e63;
+        transform: translateY(-3px);
+      }
+
+      /* Interactive Dashboard */
+      .dashboard {
+        padding: 80px 0;
+        background: #f8f9fa;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      .section-title p {
+        font-size: 1.2rem;
+        color: #666;
+      }
+
+      .dashboard-controls {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .control-btn {
+        padding: 0.75rem 1.5rem;
+        border: 2px solid #e91e63;
+        background: transparent;
+        color: #e91e63;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+      }
+
+      .control-btn.active,
+      .control-btn:hover {
+        background: #e91e63;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .analytics-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .chart-container {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .chart-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .chart-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #e91e63;
+      }
+
+      /* Interactive Line Chart */
+      .line-chart {
+        height: 300px;
+        position: relative;
+        margin: 2rem 0;
+      }
+
+      .chart-line {
+        position: absolute;
+        bottom: 50px;
+        left: 50px;
+        right: 50px;
+        height: 200px;
+        background: linear-gradient(
+          45deg,
+          transparent 49%,
+          #e91e63 49%,
+          #e91e63 51%,
+          transparent 51%
+        );
+        background-size: 20px 20px;
+        border-radius: 5px;
+        animation: drawLine 2s ease-in-out;
+      }
+
+      .chart-points {
+        position: absolute;
+        bottom: 50px;
+        left: 50px;
+        right: 50px;
+        height: 200px;
+      }
+
+      .chart-point {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: #e91e63;
+        border: 3px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(233, 30, 99, 0.3);
+      }
+
+      .chart-point:hover {
+        transform: scale(1.5);
+        box-shadow: 0 5px 20px rgba(233, 30, 99, 0.5);
+      }
+
+      .chart-point::after {
+        content: attr(data-value);
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .chart-point:hover::after {
+        opacity: 1;
+      }
+
+      /* Donut Chart */
+      .donut-chart {
+        width: 200px;
+        height: 200px;
+        margin: 2rem auto;
+        position: relative;
+      }
+
+      .donut-segment {
+        fill: none;
+        stroke-width: 30;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .donut-segment:hover {
+        stroke-width: 35;
+        filter: brightness(1.1);
+      }
+
+      .donut-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .donut-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .donut-label {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      /* KPI Cards */
+      .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 3rem 0;
+      }
+
+      .kpi-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .kpi-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #e91e63, #9c27b0);
+      }
+
+      .kpi-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      }
+
+      .kpi-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 1rem;
+        background: linear-gradient(135deg, #e91e63, #9c27b0);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .kpi-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+
+      .kpi-label {
+        color: #666;
+        font-size: 1rem;
+      }
+
+      .kpi-change {
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        font-weight: 600;
+      }
+
+      .kpi-change.positive {
+        color: #4caf50;
+      }
+
+      .kpi-change.negative {
+        color: #f44336;
+      }
+
+      /* Data Table */
+      .data-table-container {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        margin: 3rem 0;
+      }
+
+      .table-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .search-box {
+        padding: 0.75rem 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 25px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        min-width: 250px;
+      }
+
+      .search-box:focus {
+        outline: none;
+        border-color: #e91e63;
+        box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .data-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .data-table th:hover {
+        background: #e91e63;
+        color: white;
+      }
+
+      .data-table tr:hover {
+        background: #f8f9fa;
+      }
+
+      /* Features Section */
+      .features {
+        padding: 80px 0;
+        background: white;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .feature-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+        text-align: center;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        border-color: #e91e63;
+      }
+
+      .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        background: linear-gradient(135deg, #e91e63, #9c27b0);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .feature-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+      }
+
+      .feature-card p {
+        color: #666;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Footer */
+      footer {
+        background: #1a237e;
+        color: white;
+        padding: 3rem 0 1rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 1rem;
+        color: #fff;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-section ul li a:hover {
+        color: white;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid #333;
+        color: #ccc;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes drawLine {
+        from {
+          background-size: 0 20px;
+        }
+        to {
+          background-size: 20px 20px;
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: #1a237e;
+          flex-direction: column;
+          padding: 1rem;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .mobile-menu {
+          display: flex;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero p {
+          font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .analytics-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .kpi-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .table-controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .search-box {
+          min-width: auto;
+        }
+      }
+
+      /* Scroll animations */
+      .scroll-animate {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.6s ease;
+      }
+
+      .scroll-animate.animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html" class="logo">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="8" fill="#ff6b6b" />
+            <path
+              d="M10 15h20v2H10v-2zm0 4h20v2H10v-2zm0 4h15v2H10v-2z"
+              fill="white"
+            />
+          </svg>
+          Zoho
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="finance.html">Finance</a></li>
+          <li><a href="analytics.html" class="active">Analytics</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#demo">Live Demo</a></li>
+        </ul>
+        <div class="mobile-menu" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Zoho Analytics</h1>
+          <p>
+            Transform your data into actionable insights with powerful business
+            intelligence, interactive dashboards, and advanced analytics
+            capabilities.
+          </p>
+          <div class="cta-buttons">
+            <a href="#demo" class="btn btn-primary">Try Live Demo</a>
+            <a href="#features" class="btn btn-secondary">Explore Features</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard" id="demo">
+        <div class="container">
+          <div class="section-title scroll-animate">
+            <h2>Interactive Analytics Dashboard</h2>
+            <p>Experience real-time data visualization and insights</p>
+          </div>
+
+          <div class="dashboard-controls scroll-animate">
+            <button class="control-btn active" onclick="switchView('sales')">
+              Sales Analytics
+            </button>
+            <button class="control-btn" onclick="switchView('marketing')">
+              Marketing Metrics
+            </button>
+            <button class="control-btn" onclick="switchView('operations')">
+              Operations Data
+            </button>
+            <button class="control-btn" onclick="switchView('finance')">
+              Financial KPIs
+            </button>
+          </div>
+
+          <div class="analytics-grid scroll-animate">
+            <div class="chart-container">
+              <div class="chart-header">
+                <div class="chart-title">Revenue Trend</div>
+                <div class="chart-value" id="revenue-value">$2.4M</div>
+              </div>
+              <div class="line-chart">
+                <div class="chart-line"></div>
+                <div class="chart-points">
+                  <div
+                    class="chart-point"
+                    style="left: 10%; bottom: 30%"
+                    data-value="$1.8M"
+                    onclick="highlightPoint(this)"
+                  ></div>
+                  <div
+                    class="chart-point"
+                    style="left: 25%; bottom: 50%"
+                    data-value="$2.1M"
+                    onclick="highlightPoint(this)"
+                  ></div>
+                  <div
+                    class="chart-point"
+                    style="left: 40%; bottom: 35%"
+                    data-value="$1.9M"
+                    onclick="highlightPoint(this)"
+                  ></div>
+                  <div
+                    class="chart-point"
+                    style="left: 55%; bottom: 70%"
+                    data-value="$2.4M"
+                    onclick="highlightPoint(this)"
+                  ></div>
+                  <div
+                    class="chart-point"
+                    style="left: 70%; bottom: 60%"
+                    data-value="$2.2M"
+                    onclick="highlightPoint(this)"
+                  ></div>
+                  <div
+                    class="chart-point"
+                    style="left: 85%; bottom: 80%"
+                    data-value="$2.6M"
+                    onclick="highlightPoint(this)"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <div class="chart-header">
+                <div class="chart-title">Market Share</div>
+              </div>
+              <div class="donut-chart">
+                <svg width="200" height="200">
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    class="donut-segment"
+                    stroke="#e91e63"
+                    stroke-dasharray="200 340"
+                    stroke-dashoffset="0"
+                    onclick="updateDonut('Product A', '37%')"
+                  ></circle>
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    class="donut-segment"
+                    stroke="#9c27b0"
+                    stroke-dasharray="120 420"
+                    stroke-dashoffset="-200"
+                    onclick="updateDonut('Product B', '22%')"
+                  ></circle>
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    class="donut-segment"
+                    stroke="#3f51b5"
+                    stroke-dasharray="100 440"
+                    stroke-dashoffset="-320"
+                    onclick="updateDonut('Product C', '19%')"
+                  ></circle>
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    class="donut-segment"
+                    stroke="#00bcd4"
+                    stroke-dasharray="120 420"
+                    stroke-dashoffset="-420"
+                    onclick="updateDonut('Others', '22%')"
+                  ></circle>
+                </svg>
+                <div class="donut-center">
+                  <div class="donut-value" id="donut-value">37%</div>
+                  <div class="donut-label" id="donut-label">Product A</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi-grid scroll-animate">
+            <div class="kpi-card pulse" onclick="animateKPI(this)">
+              <div class="kpi-icon">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                  />
+                </svg>
+              </div>
+              <div class="kpi-value" data-target="1247">0</div>
+              <div class="kpi-label">New Customers</div>
+              <div class="kpi-change positive">↗ +12.5%</div>
+            </div>
+
+            <div class="kpi-card" onclick="animateKPI(this)">
+              <div class="kpi-icon">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                  />
+                </svg>
+              </div>
+              <div class="kpi-value" data-target="94">0</div>
+              <div class="kpi-label">Conversion Rate (%)</div>
+              <div class="kpi-change positive">↗ +3.2%</div>
+            </div>
+
+            <div class="kpi-card" onclick="animateKPI(this)">
+              <div class="kpi-icon">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                  <path d="M7 14l5-5 5 5z" />
+                </svg>
+              </div>
+              <div class="kpi-value" data-target="2847">0</div>
+              <div class="kpi-label">Active Users</div>
+              <div class="kpi-change negative">↘ -2.1%</div>
+            </div>
+
+            <div class="kpi-card" onclick="animateKPI(this)">
+              <div class="kpi-icon">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"
+                  />
+                </svg>
+              </div>
+              <div class="kpi-value" data-target="156">$0</div>
+              <div class="kpi-label">Avg. Order Value</div>
+              <div class="kpi-change positive">↗ +8.7%</div>
+            </div>
+          </div>
+
+          <div class="data-table-container scroll-animate">
+            <div class="table-controls">
+              <h3>Top Performing Products</h3>
+              <input
+                type="text"
+                class="search-box"
+                placeholder="Search products..."
+                onkeyup="filterTable(this.value)"
+              />
+            </div>
+            <table class="data-table" id="products-table">
+              <thead>
+                <tr>
+                  <th onclick="sortTable(0)">Product Name</th>
+                  <th onclick="sortTable(1)">Revenue</th>
+                  <th onclick="sortTable(2)">Units Sold</th>
+                  <th onclick="sortTable(3)">Growth</th>
+                  <th onclick="sortTable(4)">Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Premium Widget Pro</td>
+                  <td>$245,000</td>
+                  <td>1,250</td>
+                  <td style="color: #4caf50">+15.2%</td>
+                  <td>⭐⭐⭐⭐⭐ 4.8</td>
+                </tr>
+                <tr>
+                  <td>Smart Analytics Suite</td>
+                  <td>$189,500</td>
+                  <td>890</td>
+                  <td style="color: #4caf50">+22.1%</td>
+                  <td>⭐⭐⭐⭐⭐ 4.9</td>
+                </tr>
+                <tr>
+                  <td>Business Dashboard</td>
+                  <td>$156,800</td>
+                  <td>2,100</td>
+                  <td style="color: #4caf50">+8.7%</td>
+                  <td>⭐⭐⭐⭐ 4.6</td>
+                </tr>
+                <tr>
+                  <td>Mobile App Builder</td>
+                  <td>$134,200</td>
+                  <td>670</td>
+                  <td style="color: #f44336">-3.2%</td>
+                  <td>⭐⭐⭐⭐ 4.4</td>
+                </tr>
+                <tr>
+                  <td>Cloud Storage Plus</td>
+                  <td>$98,750</td>
+                  <td>1,890</td>
+                  <td style="color: #4caf50">+12.8%</td>
+                  <td>⭐⭐⭐⭐ 4.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <div class="container">
+          <div class="section-title scroll-animate">
+            <h2>Advanced Analytics Features</h2>
+            <p>Powerful tools to unlock insights from your data</p>
+          </div>
+          <div class="features-grid">
+            <div class="feature-card scroll-animate">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"
+                  />
+                </svg>
+              </div>
+              <h3>Real-time Dashboards</h3>
+              <p>
+                Create interactive dashboards with live data updates and
+                customizable visualizations for instant insights.
+              </p>
+            </div>
+            <div class="feature-card scroll-animate">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                  />
+                </svg>
+              </div>
+              <h3>AI-Powered Insights</h3>
+              <p>
+                Leverage machine learning algorithms to discover hidden patterns
+                and predict future trends automatically.
+              </p>
+            </div>
+            <div class="feature-card scroll-animate">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-1 16H9V7h9v14z"
+                  />
+                </svg>
+              </div>
+              <h3>Multi-Source Integration</h3>
+              <p>
+                Connect and analyze data from multiple sources including
+                databases, APIs, and cloud services seamlessly.
+              </p>
+            </div>
+            <div class="feature-card scroll-animate">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"
+                  />
+                </svg>
+              </div>
+              <h3>Advanced Security</h3>
+              <p>
+                Enterprise-grade security with role-based access control and
+                data encryption to protect sensitive information.
+              </p>
+            </div>
+            <div class="feature-card scroll-animate">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"
+                  />
+                </svg>
+              </div>
+              <h3>Custom Reports</h3>
+              <p>
+                Generate detailed reports with drag-and-drop functionality and
+                automated scheduling for stakeholders.
+              </p>
+            </div>
+            <div class="feature-card scroll-animate">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                  />
+                </svg>
+              </div>
+              <h3>Mobile Analytics</h3>
+              <p>
+                Access your analytics on-the-go with responsive mobile
+                dashboards and native mobile applications.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Products</h3>
+            <ul>
+              <li><a href="finance.html">Zoho Finance</a></li>
+              <li><a href="analytics.html">Zoho Analytics</a></li>
+              <li><a href="#">Zoho CRM</a></li>
+              <li><a href="#">Zoho Projects</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Press</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">Community</a></li>
+              <li><a href="#">Training</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Security</a></li>
+              <li><a href="#">Compliance</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Zoho Corporation. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      function toggleMenu() {
+        const navLinks = document.querySelector(".nav-links");
+        navLinks.classList.toggle("active");
+      }
+
+      // Switch dashboard views
+      function switchView(viewType) {
+        // Update active button
+        document.querySelectorAll(".control-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        event.target.classList.add("active");
+
+        // Update chart data based on view
+        const revenueValue = document.getElementById("revenue-value");
+        const chartPoints = document.querySelectorAll(".chart-point");
+
+        const viewData = {
+          sales: {
+            value: "$2.4M",
+            points: ["$1.8M", "$2.1M", "$1.9M", "$2.4M", "$2.2M", "$2.6M"],
+          },
+          marketing: {
+            value: "$1.8M",
+            points: ["$1.2M", "$1.5M", "$1.3M", "$1.8M", "$1.6M", "$2.0M"],
+          },
+          operations: {
+            value: "$3.1M",
+            points: ["$2.5M", "$2.8M", "$2.6M", "$3.1M", "$2.9M", "$3.3M"],
+          },
+          finance: {
+            value: "$2.9M",
+            points: ["$2.2M", "$2.5M", "$2.3M", "$2.9M", "$2.7M", "$3.1M"],
+          },
+        };
+
+        revenueValue.textContent = viewData[viewType].value;
+        chartPoints.forEach((point, index) => {
+          point.setAttribute("data-value", viewData[viewType].points[index]);
+        });
+
+        // Add animation effect
+        revenueValue.style.transform = "scale(1.2)";
+        setTimeout(() => {
+          revenueValue.style.transform = "scale(1)";
+        }, 300);
+      }
+
+      // Highlight chart point
+      function highlightPoint(point) {
+        // Reset all points
+        document.querySelectorAll(".chart-point").forEach((p) => {
+          p.style.transform = "scale(1)";
+          p.style.background = "#e91e63";
+        });
+
+        // Highlight selected point
+        point.style.transform = "scale(1.8)";
+        point.style.background = "#ff6b6b";
+
+        // Update revenue value
+        const revenueValue = document.getElementById("revenue-value");
+        revenueValue.textContent = point.getAttribute("data-value");
+        revenueValue.style.color = "#ff6b6b";
+
+        setTimeout(() => {
+          revenueValue.style.color = "#e91e63";
+        }, 1000);
+      }
+
+      // Update donut chart
+      function updateDonut(label, value) {
+        document.getElementById("donut-label").textContent = label;
+        document.getElementById("donut-value").textContent = value;
+
+        // Add pulse effect
+        const donutCenter = document.querySelector(".donut-center");
+        donutCenter.style.transform = "translate(-50%, -50%) scale(1.1)";
+        setTimeout(() => {
+          donutCenter.style.transform = "translate(-50%, -50%) scale(1)";
+        }, 300);
+      }
+
+      // Animate KPI counter
+      function animateCounter(element, target) {
+        let current = 0;
+        const increment = target / 100;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+
+          if (target > 1000) {
+            element.textContent = Math.floor(current).toLocaleString();
+          } else if (target > 100) {
+            element.textContent = "$" + Math.floor(current);
+          } else {
+            element.textContent =
+              Math.floor(current) + (target < 100 ? "" : "");
+          }
+        }, 20);
+      }
+
+      // Animate KPI card
+      function animateKPI(card) {
+        const valueElement = card.querySelector(".kpi-value");
+        const target = parseInt(valueElement.getAttribute("data-target"));
+        animateCounter(valueElement, target);
+
+        card.style.transform = "translateY(-15px) scale(1.05)";
+        setTimeout(() => {
+          card.style.transform = "translateY(0) scale(1)";
+        }, 300);
+      }
+
+      // Filter table
+      function filterTable(searchTerm) {
+        const table = document.getElementById("products-table");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          const productName = row.cells[0].textContent.toLowerCase();
+
+          if (productName.includes(searchTerm.toLowerCase())) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        }
+      }
+
+      // Sort table
+      function sortTable(columnIndex) {
+        const table = document.getElementById("products-table");
+        const tbody = table.getElementsByTagName("tbody")[0];
+        const rows = Array.from(tbody.getElementsByTagName("tr"));
+
+        rows.sort((a, b) => {
+          const aValue = a.cells[columnIndex].textContent;
+          const bValue = b.cells[columnIndex].textContent;
+
+          // Handle numeric values
+          if (columnIndex === 1 || columnIndex === 2) {
+            return (
+              parseFloat(bValue.replace(/[$,]/g, "")) -
+              parseFloat(aValue.replace(/[$,]/g, ""))
+            );
+          }
+
+          return aValue.localeCompare(bValue);
+        });
+
+        // Clear tbody and append sorted rows
+        tbody.innerHTML = "";
+        rows.forEach((row) => tbody.appendChild(row));
+
+        // Add visual feedback
+        const header = table.getElementsByTagName("th")[columnIndex];
+        header.style.background = "#e91e63";
+        header.style.color = "white";
+
+        setTimeout(() => {
+          header.style.background = "#f8f9fa";
+          header.style.color = "#333";
+        }, 1000);
+      }
+
+      // Scroll animations
+      function animateOnScroll() {
+        const elements = document.querySelectorAll(".scroll-animate");
+        elements.forEach((element) => {
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150;
+
+          if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add("animate");
+          }
+        });
+      }
+
+      // Header scroll effect
+      function handleHeaderScroll() {
+        const header = document.querySelector("header");
+        if (window.scrollY > 100) {
+          header.style.background = "rgba(26, 35, 126, 0.95)";
+          header.style.backdropFilter = "blur(10px)";
+        } else {
+          header.style.background =
+            "linear-gradient(135deg, #1a237e 0%, #3949ab 100%)";
+          header.style.backdropFilter = "none";
+        }
+      }
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Event listeners
+      window.addEventListener("scroll", () => {
+        animateOnScroll();
+        handleHeaderScroll();
+      });
+
+      window.addEventListener("load", () => {
+        animateOnScroll();
+
+        // Auto-animate KPIs when page loads
+        setTimeout(() => {
+          document.querySelectorAll(".kpi-card").forEach((card) => {
+            animateKPI(card);
+          });
+        }, 1000);
+      });
+
+      // Real-time data simulation
+      function simulateRealTimeData() {
+        const revenueValue = document.getElementById("revenue-value");
+        const currentValue = parseFloat(
+          revenueValue.textContent.replace(/[$M]/g, "")
+        );
+        const variation = (Math.random() - 0.5) * 0.2;
+        const newValue = Math.max(0, currentValue + variation);
+
+        revenueValue.textContent = "$" + newValue.toFixed(1) + "M";
+
+        // Update chart points randomly
+        const chartPoints = document.querySelectorAll(".chart-point");
+        chartPoints.forEach((point) => {
+          const currentHeight = parseFloat(point.style.bottom);
+          const newHeight = Math.max(
+            20,
+            Math.min(90, currentHeight + (Math.random() - 0.5) * 10)
+          );
+          point.style.bottom = newHeight + "%";
+
+          const value = Math.floor(newValue * (newHeight / 100) * 1000);
+          point.setAttribute(
+            "data-value",
+            "$" + (value / 1000).toFixed(1) + "K"
+          );
+        });
+      }
+
+      // Start real-time simulation
+      setInterval(simulateRealTimeData, 5000);
+
+      // Add interactive hover effects
+      document.querySelectorAll(".chart-point").forEach((point) => {
+        point.addEventListener("mouseenter", function () {
+          this.style.transform = "scale(1.5)";
+          this.style.zIndex = "10";
+        });
+
+        point.addEventListener("mouseleave", function () {
+          if (!this.classList.contains("active")) {
+            this.style.transform = "scale(1)";
+            this.style.zIndex = "1";
+          }
+        });
+      });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'98f600060625c7d4',t:'MTc2MDYwMTM5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
