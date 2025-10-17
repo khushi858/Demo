@@ -429,6 +429,29 @@
         color: white;
         backdrop-filter: blur(10px);
       }
+
+      .chart-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .report-modal {
+        backdrop-filter: blur(10px);
+      }
+
+      @keyframes chartAnimate {
+        0% {
+          stroke-dasharray: 0, 1000;
+        }
+        100% {
+          stroke-dasharray: 1000, 0;
+        }
+      }
+
+      .chart-line {
+        animation: chartAnimate 3s ease-in-out;
+      }
     </style>
   </head>
   <body class="font-sans">
@@ -906,6 +929,1658 @@
         </div>
       </section>
 
+      <!-- Professional Dashboard Section -->
+      <section class="py-20 bg-gray-50 relative overflow-hidden">
+        <div class="container mx-auto px-4">
+          <!-- Dashboard Header -->
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4 fade-in">
+              Financial Analytics Dashboard
+            </h2>
+            <p class="text-xl text-gray-600 fade-in">
+              Real-time insights and comprehensive reporting at your fingertips
+            </p>
+          </div>
+
+          <!-- Dashboard Container -->
+          <div class="bg-white rounded-2xl shadow-2xl overflow-hidden fade-in">
+            <!-- Dashboard Header Bar -->
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                  <div class="flex items-center space-x-2">
+                    <div
+                      class="w-8 h-8 bg-white bg-opacity-20 rounded flex items-center justify-center"
+                    >
+                      <span class="text-white font-bold">📊</span>
+                    </div>
+                    <span class="text-white font-semibold text-lg"
+                      >Finance Dashboard</span
+                    >
+                  </div>
+                  <div
+                    class="hidden md:flex items-center space-x-2 text-white text-sm opacity-90"
+                  >
+                    <span>•</span>
+                    <span>Last updated: 2 minutes ago</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <button
+                    class="bg-white bg-opacity-20 text-white px-3 py-1 rounded text-sm hover:bg-opacity-30 transition-colors"
+                  >
+                    Export
+                  </button>
+                  <button
+                    class="bg-white bg-opacity-20 text-white px-3 py-1 rounded text-sm hover:bg-opacity-30 transition-colors"
+                  >
+                    Share
+                  </button>
+                  <div
+                    class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+                  >
+                    <span class="text-white text-sm">⚙️</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="p-6 bg-gray-50">
+              <!-- Top KPI Row -->
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div
+                  class="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+                >
+                  <div class="flex items-center justify-between mb-4">
+                    <div
+                      class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center"
+                    >
+                      <span class="text-blue-600 text-xl">💰</span>
+                    </div>
+                    <span
+                      class="text-green-500 text-sm font-medium bg-green-50 px-2 py-1 rounded"
+                      >+12.5%</span
+                    >
+                  </div>
+                  <div class="text-2xl font-bold text-gray-800 mb-1">₹5.2M</div>
+                  <div class="text-gray-600 text-sm">Total Revenue</div>
+                  <div class="mt-3 w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      class="bg-blue-500 h-2 rounded-full animate-pulse"
+                      style="width: 85%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+                >
+                  <div class="flex items-center justify-between mb-4">
+                    <div
+                      class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center"
+                    >
+                      <span class="text-green-600 text-xl">📈</span>
+                    </div>
+                    <span
+                      class="text-green-500 text-sm font-medium bg-green-50 px-2 py-1 rounded"
+                      >+8.2%</span
+                    >
+                  </div>
+                  <div class="text-2xl font-bold text-gray-800 mb-1">34.7%</div>
+                  <div class="text-gray-600 text-sm">Profit Margin</div>
+                  <div class="mt-3 w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      class="bg-green-500 h-2 rounded-full animate-pulse"
+                      style="width: 70%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+                >
+                  <div class="flex items-center justify-between mb-4">
+                    <div
+                      class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center"
+                    >
+                      <span class="text-purple-600 text-xl">👥</span>
+                    </div>
+                    <span
+                      class="text-green-500 text-sm font-medium bg-green-50 px-2 py-1 rounded"
+                      >+15.8%</span
+                    >
+                  </div>
+                  <div class="text-2xl font-bold text-gray-800 mb-1">2,847</div>
+                  <div class="text-gray-600 text-sm">Active Customers</div>
+                  <div class="mt-3 w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      class="bg-purple-500 h-2 rounded-full animate-pulse"
+                      style="width: 92%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+                >
+                  <div class="flex items-center justify-between mb-4">
+                    <div
+                      class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center"
+                    >
+                      <span class="text-orange-600 text-xl">💳</span>
+                    </div>
+                    <span
+                      class="text-green-500 text-sm font-medium bg-green-50 px-2 py-1 rounded"
+                      >+22.1%</span
+                    >
+                  </div>
+                  <div class="text-2xl font-bold text-gray-800 mb-1">₹890K</div>
+                  <div class="text-gray-600 text-sm">Cash Flow</div>
+                  <div class="mt-3 w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      class="bg-orange-500 h-2 rounded-full animate-pulse"
+                      style="width: 76%"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Main Dashboard Grid -->
+              <div class="grid lg:grid-cols-3 gap-6">
+                <!-- Revenue Trend Chart -->
+                <div
+                  class="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200"
+                >
+                  <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                      <h3 class="text-lg font-semibold text-gray-800">
+                        Revenue Trends
+                      </h3>
+                      <div class="flex space-x-2">
+                        <button
+                          class="bg-blue-50 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-100 transition-colors"
+                          onclick="updateDashboardChart('7d')"
+                        >
+                          7D
+                        </button>
+                        <button
+                          class="bg-gray-100 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-200 transition-colors"
+                          onclick="updateDashboardChart('30d')"
+                        >
+                          30D
+                        </button>
+                        <button
+                          class="bg-gray-100 text-gray-600 px-3 py-1 rounded text-sm hover:bg-gray-200 transition-colors"
+                          onclick="updateDashboardChart('1y')"
+                        >
+                          1Y
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <div class="relative h-64">
+                      <svg
+                        class="w-full h-full"
+                        viewBox="0 0 600 250"
+                        id="dashboard-revenue-chart"
+                      >
+                        <defs>
+                          <linearGradient
+                            id="dashboardGradient"
+                            x1="0%"
+                            y1="0%"
+                            x2="100%"
+                            y2="0%"
+                          >
+                            <stop
+                              offset="0%"
+                              style="stop-color: #3b82f6; stop-opacity: 1"
+                            />
+                            <stop
+                              offset="50%"
+                              style="stop-color: #8b5cf6; stop-opacity: 1"
+                            />
+                            <stop
+                              offset="100%"
+                              style="stop-color: #06b6d4; stop-opacity: 1"
+                            />
+                          </linearGradient>
+                          <linearGradient
+                            id="dashboardAreaFill"
+                            x1="0%"
+                            y1="0%"
+                            x2="0%"
+                            y2="100%"
+                          >
+                            <stop
+                              offset="0%"
+                              style="stop-color: #3b82f6; stop-opacity: 0.3"
+                            />
+                            <stop
+                              offset="100%"
+                              style="stop-color: #3b82f6; stop-opacity: 0.05"
+                            />
+                          </linearGradient>
+                        </defs>
+
+                        <!-- Grid lines -->
+                        <g stroke="#e5e7eb" stroke-width="1">
+                          <line x1="0" y1="50" x2="600" y2="50" />
+                          <line x1="0" y1="100" x2="600" y2="100" />
+                          <line x1="0" y1="150" x2="600" y2="150" />
+                          <line x1="0" y1="200" x2="600" y2="200" />
+                        </g>
+
+                        <!-- Area fill -->
+                        <path
+                          d="M0,200 L100,180 L200,160 L300,140 L400,120 L500,100 L600,80 L600,250 L0,250 Z"
+                          fill="url(#dashboardAreaFill)"
+                        />
+
+                        <!-- Main trend line -->
+                        <polyline
+                          fill="none"
+                          stroke="url(#dashboardGradient)"
+                          stroke-width="3"
+                          points="0,200 100,180 200,160 300,140 400,120 500,100 600,80"
+                          style="
+                            filter: drop-shadow(
+                              0 2px 4px rgba(59, 130, 246, 0.3)
+                            );
+                          "
+                        >
+                          <animate
+                            attributeName="stroke-dasharray"
+                            values="0,3000;3000,0"
+                            dur="3s"
+                            fill="freeze"
+                          />
+                        </polyline>
+
+                        <!-- Data points -->
+                        <circle cx="100" cy="180" r="4" fill="#3b82f6">
+                          <animate
+                            attributeName="r"
+                            values="0;4;6;4"
+                            dur="2s"
+                            fill="freeze"
+                          />
+                        </circle>
+                        <circle cx="200" cy="160" r="4" fill="#3b82f6">
+                          <animate
+                            attributeName="r"
+                            values="0;4;6;4"
+                            dur="2s"
+                            begin="0.3s"
+                            fill="freeze"
+                          />
+                        </circle>
+                        <circle cx="300" cy="140" r="4" fill="#3b82f6">
+                          <animate
+                            attributeName="r"
+                            values="0;4;6;4"
+                            dur="2s"
+                            begin="0.6s"
+                            fill="freeze"
+                          />
+                        </circle>
+                        <circle cx="400" cy="120" r="4" fill="#3b82f6">
+                          <animate
+                            attributeName="r"
+                            values="0;4;6;4"
+                            dur="2s"
+                            begin="0.9s"
+                            fill="freeze"
+                          />
+                        </circle>
+                        <circle cx="500" cy="100" r="4" fill="#3b82f6">
+                          <animate
+                            attributeName="r"
+                            values="0;4;6;4"
+                            dur="2s"
+                            begin="1.2s"
+                            fill="freeze"
+                          />
+                        </circle>
+
+                        <!-- Labels -->
+                        <text
+                          x="50"
+                          y="240"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="12"
+                        >
+                          Jan
+                        </text>
+                        <text
+                          x="150"
+                          y="240"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="12"
+                        >
+                          Feb
+                        </text>
+                        <text
+                          x="250"
+                          y="240"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="12"
+                        >
+                          Mar
+                        </text>
+                        <text
+                          x="350"
+                          y="240"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="12"
+                        >
+                          Apr
+                        </text>
+                        <text
+                          x="450"
+                          y="240"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="12"
+                        >
+                          May
+                        </text>
+                        <text
+                          x="550"
+                          y="240"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="12"
+                        >
+                          Jun
+                        </text>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Sidebar Widgets -->
+                <div class="space-y-6">
+                  <!-- Top Expenses -->
+                  <div
+                    class="bg-white rounded-lg shadow-sm border border-gray-200"
+                  >
+                    <div class="p-4 border-b border-gray-200">
+                      <h3 class="text-lg font-semibold text-gray-800">
+                        Top Expenses
+                      </h3>
+                    </div>
+                    <div class="p-4 space-y-4">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                          <div
+                            class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center"
+                          >
+                            <span class="text-red-600 text-sm">🏢</span>
+                          </div>
+                          <div>
+                            <div class="font-medium text-gray-800">
+                              Operations
+                            </div>
+                            <div class="text-sm text-gray-500">
+                              40% of total
+                            </div>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <div class="font-semibold text-gray-800">₹2.1M</div>
+                        </div>
+                      </div>
+
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                          <div
+                            class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center"
+                          >
+                            <span class="text-blue-600 text-sm">📢</span>
+                          </div>
+                          <div>
+                            <div class="font-medium text-gray-800">
+                              Marketing
+                            </div>
+                            <div class="text-sm text-gray-500">
+                              25% of total
+                            </div>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <div class="font-semibold text-gray-800">₹1.3M</div>
+                        </div>
+                      </div>
+
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                          <div
+                            class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center"
+                          >
+                            <span class="text-purple-600 text-sm">💻</span>
+                          </div>
+                          <div>
+                            <div class="font-medium text-gray-800">
+                              Technology
+                            </div>
+                            <div class="text-sm text-gray-500">
+                              20% of total
+                            </div>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <div class="font-semibold text-gray-800">₹1.0M</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Quick Actions -->
+                  <div
+                    class="bg-white rounded-lg shadow-sm border border-gray-200"
+                  >
+                    <div class="p-4 border-b border-gray-200">
+                      <h3 class="text-lg font-semibold text-gray-800">
+                        Quick Actions
+                      </h3>
+                    </div>
+                    <div class="p-4 space-y-3">
+                      <button
+                        class="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-3 rounded-lg text-left transition-colors"
+                      >
+                        <div class="flex items-center space-x-3">
+                          <span class="text-lg">📊</span>
+                          <span class="font-medium">Generate Report</span>
+                        </div>
+                      </button>
+                      <button
+                        class="w-full bg-green-50 hover:bg-green-100 text-green-700 px-4 py-3 rounded-lg text-left transition-colors"
+                      >
+                        <div class="flex items-center space-x-3">
+                          <span class="text-lg">💰</span>
+                          <span class="font-medium">Add Transaction</span>
+                        </div>
+                      </button>
+                      <button
+                        class="w-full bg-purple-50 hover:bg-purple-100 text-purple-700 px-4 py-3 rounded-lg text-left transition-colors"
+                      >
+                        <div class="flex items-center space-x-3">
+                          <span class="text-lg">📈</span>
+                          <span class="font-medium">View Analytics</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Row Charts -->
+              <div class="grid lg:grid-cols-2 gap-6 mt-8">
+                <!-- Cash Flow Chart -->
+                <div
+                  class="bg-white rounded-lg shadow-sm border border-gray-200"
+                >
+                  <div class="p-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800">
+                      Monthly Cash Flow
+                    </h3>
+                  </div>
+                  <div class="p-4">
+                    <div class="relative h-48">
+                      <svg class="w-full h-full" viewBox="0 0 400 180">
+                        <!-- Grid lines -->
+                        <g stroke="#f3f4f6" stroke-width="1">
+                          <line x1="0" y1="30" x2="400" y2="30" />
+                          <line x1="0" y1="60" x2="400" y2="60" />
+                          <line x1="0" y1="90" x2="400" y2="90" />
+                          <line x1="0" y1="120" x2="400" y2="120" />
+                          <line x1="0" y1="150" x2="400" y2="150" />
+                        </g>
+
+                        <!-- Bars -->
+                        <g>
+                          <rect
+                            x="30"
+                            y="100"
+                            width="25"
+                            height="50"
+                            fill="#3b82f6"
+                            rx="2"
+                          >
+                            <animate
+                              attributeName="height"
+                              values="0;50"
+                              dur="1s"
+                              fill="freeze"
+                            />
+                            <animate
+                              attributeName="y"
+                              values="150;100"
+                              dur="1s"
+                              fill="freeze"
+                            />
+                          </rect>
+                          <rect
+                            x="80"
+                            y="80"
+                            width="25"
+                            height="70"
+                            fill="#10b981"
+                            rx="2"
+                          >
+                            <animate
+                              attributeName="height"
+                              values="0;70"
+                              dur="1s"
+                              begin="0.2s"
+                              fill="freeze"
+                            />
+                            <animate
+                              attributeName="y"
+                              values="150;80"
+                              dur="1s"
+                              begin="0.2s"
+                              fill="freeze"
+                            />
+                          </rect>
+                          <rect
+                            x="130"
+                            y="60"
+                            width="25"
+                            height="90"
+                            fill="#8b5cf6"
+                            rx="2"
+                          >
+                            <animate
+                              attributeName="height"
+                              values="0;90"
+                              dur="1s"
+                              begin="0.4s"
+                              fill="freeze"
+                            />
+                            <animate
+                              attributeName="y"
+                              values="150;60"
+                              dur="1s"
+                              begin="0.4s"
+                              fill="freeze"
+                            />
+                          </rect>
+                          <rect
+                            x="180"
+                            y="70"
+                            width="25"
+                            height="80"
+                            fill="#f59e0b"
+                            rx="2"
+                          >
+                            <animate
+                              attributeName="height"
+                              values="0;80"
+                              dur="1s"
+                              begin="0.6s"
+                              fill="freeze"
+                            />
+                            <animate
+                              attributeName="y"
+                              values="150;70"
+                              dur="1s"
+                              begin="0.6s"
+                              fill="freeze"
+                            />
+                          </rect>
+                          <rect
+                            x="230"
+                            y="50"
+                            width="25"
+                            height="100"
+                            fill="#ef4444"
+                            rx="2"
+                          >
+                            <animate
+                              attributeName="height"
+                              values="0;100"
+                              dur="1s"
+                              begin="0.8s"
+                              fill="freeze"
+                            />
+                            <animate
+                              attributeName="y"
+                              values="150;50"
+                              dur="1s"
+                              begin="0.8s"
+                              fill="freeze"
+                            />
+                          </rect>
+                          <rect
+                            x="280"
+                            y="40"
+                            width="25"
+                            height="110"
+                            fill="#06b6d4"
+                            rx="2"
+                          >
+                            <animate
+                              attributeName="height"
+                              values="0;110"
+                              dur="1s"
+                              begin="1s"
+                              fill="freeze"
+                            />
+                            <animate
+                              attributeName="y"
+                              values="150;40"
+                              dur="1s"
+                              begin="1s"
+                              fill="freeze"
+                            />
+                          </rect>
+                        </g>
+
+                        <!-- Labels -->
+                        <text
+                          x="42"
+                          y="170"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="10"
+                        >
+                          Jan
+                        </text>
+                        <text
+                          x="92"
+                          y="170"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="10"
+                        >
+                          Feb
+                        </text>
+                        <text
+                          x="142"
+                          y="170"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="10"
+                        >
+                          Mar
+                        </text>
+                        <text
+                          x="192"
+                          y="170"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="10"
+                        >
+                          Apr
+                        </text>
+                        <text
+                          x="242"
+                          y="170"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="10"
+                        >
+                          May
+                        </text>
+                        <text
+                          x="292"
+                          y="170"
+                          fill="#6b7280"
+                          text-anchor="middle"
+                          font-size="10"
+                        >
+                          Jun
+                        </text>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Expense Breakdown -->
+                <div
+                  class="bg-white rounded-lg shadow-sm border border-gray-200"
+                >
+                  <div class="p-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800">
+                      Expense Distribution
+                    </h3>
+                  </div>
+                  <div class="p-4">
+                    <div class="relative h-48 flex items-center justify-center">
+                      <svg class="w-48 h-48" viewBox="0 0 200 200">
+                        <defs>
+                          <filter id="dashboardGlow">
+                            <feGaussianBlur
+                              stdDeviation="2"
+                              result="coloredBlur"
+                            />
+                            <feMerge>
+                              <feMergeNode in="coloredBlur" />
+                              <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                          </filter>
+                        </defs>
+
+                        <!-- Pie chart segments -->
+                        <g
+                          transform="translate(100,100)"
+                          filter="url(#dashboardGlow)"
+                        >
+                          <!-- Operations (40%) -->
+                          <path
+                            d="M 0,-60 A 60,60 0 0,1 42.43,42.43 L 0,0 Z"
+                            fill="#ef4444"
+                            opacity="0.9"
+                          >
+                            <animate
+                              attributeName="opacity"
+                              values="0;0.9"
+                              dur="1s"
+                              fill="freeze"
+                            />
+                          </path>
+                          <!-- Marketing (25%) -->
+                          <path
+                            d="M 42.43,42.43 A 60,60 0 0,1 -15,57.32 L 0,0 Z"
+                            fill="#3b82f6"
+                            opacity="0.9"
+                          >
+                            <animate
+                              attributeName="opacity"
+                              values="0;0.9"
+                              dur="1s"
+                              begin="0.3s"
+                              fill="freeze"
+                            />
+                          </path>
+                          <!-- Technology (20%) -->
+                          <path
+                            d="M -15,57.32 A 60,60 0 0,1 -54.13,-23.27 L 0,0 Z"
+                            fill="#8b5cf6"
+                            opacity="0.9"
+                          >
+                            <animate
+                              attributeName="opacity"
+                              values="0;0.9"
+                              dur="1s"
+                              begin="0.6s"
+                              fill="freeze"
+                            />
+                          </path>
+                          <!-- Other (15%) -->
+                          <path
+                            d="M -54.13,-23.27 A 60,60 0 0,1 0,-60 L 0,0 Z"
+                            fill="#f59e0b"
+                            opacity="0.9"
+                          >
+                            <animate
+                              attributeName="opacity"
+                              values="0;0.9"
+                              dur="1s"
+                              begin="0.9s"
+                              fill="freeze"
+                            />
+                          </path>
+                        </g>
+
+                        <!-- Center circle -->
+                        <circle
+                          cx="100"
+                          cy="100"
+                          r="25"
+                          fill="white"
+                          stroke="#e5e7eb"
+                          stroke-width="2"
+                        />
+                        <text
+                          x="100"
+                          y="105"
+                          text-anchor="middle"
+                          fill="#374151"
+                          font-size="12"
+                          font-weight="bold"
+                        >
+                          Total
+                        </text>
+                      </svg>
+
+                      <!-- Legend -->
+                      <div class="absolute top-0 right-0 space-y-2 text-xs">
+                        <div class="flex items-center space-x-2">
+                          <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                          <span class="text-gray-700">Operations</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                          <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                          <span class="text-gray-700">Marketing</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                          <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
+                          <span class="text-gray-700">Technology</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                          <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                          <span class="text-gray-700">Other</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Advanced Analytics & Reports Section -->
+      <section
+        class="py-20 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 relative overflow-hidden"
+      >
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0">
+          <div class="floating-shape absolute top-10 left-10 text-4xl">💎</div>
+          <div class="floating-shape absolute top-20 right-20 text-3xl">📊</div>
+          <div class="floating-shape absolute bottom-10 left-1/4 text-2xl">
+            💰
+          </div>
+          <div class="floating-shape absolute bottom-20 right-1/3 text-3xl">
+            🚀
+          </div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+          <!-- Section Header -->
+          <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-white mb-4 fade-in rainbow-text">
+              Advanced Analytics & Reporting
+            </h2>
+            <p class="text-xl text-white opacity-90 fade-in">
+              Real-time insights with interactive charts and comprehensive
+              reports
+            </p>
+          </div>
+
+          <!-- Analytics Dashboard -->
+          <div
+            class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 mb-12 fade-in glow-effect"
+          >
+            <div class="grid lg:grid-cols-3 gap-8">
+              <!-- Revenue Trend Chart -->
+              <div class="lg:col-span-2 bg-white bg-opacity-20 rounded-xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                  <h3 class="text-xl font-bold text-white">Revenue Trends</h3>
+                  <div class="flex space-x-2">
+                    <button
+                      class="bg-white bg-opacity-30 text-white px-3 py-1 rounded text-sm hover:bg-opacity-50 transition-colors"
+                      onclick="updateChart('7d')"
+                    >
+                      7D
+                    </button>
+                    <button
+                      class="bg-white bg-opacity-50 text-white px-3 py-1 rounded text-sm hover:bg-opacity-70 transition-colors"
+                      onclick="updateChart('30d')"
+                    >
+                      30D
+                    </button>
+                    <button
+                      class="bg-white bg-opacity-30 text-white px-3 py-1 rounded text-sm hover:bg-opacity-50 transition-colors"
+                      onclick="updateChart('1y')"
+                    >
+                      1Y
+                    </button>
+                  </div>
+                </div>
+                <div class="relative h-64">
+                  <svg
+                    class="w-full h-full"
+                    viewBox="0 0 600 250"
+                    id="revenue-chart"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="revenueGradient"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="0%"
+                      >
+                        <stop
+                          offset="0%"
+                          style="stop-color: #ff6b6b; stop-opacity: 1"
+                        />
+                        <stop
+                          offset="25%"
+                          style="stop-color: #4ecdc4; stop-opacity: 1"
+                        />
+                        <stop
+                          offset="50%"
+                          style="stop-color: #45b7d1; stop-opacity: 1"
+                        />
+                        <stop
+                          offset="75%"
+                          style="stop-color: #96ceb4; stop-opacity: 1"
+                        />
+                        <stop
+                          offset="100%"
+                          style="stop-color: #feca57; stop-opacity: 1"
+                        />
+                      </linearGradient>
+                      <linearGradient
+                        id="areaFill"
+                        x1="0%"
+                        y1="0%"
+                        x2="0%"
+                        y2="100%"
+                      >
+                        <stop
+                          offset="0%"
+                          style="stop-color: #4ecdc4; stop-opacity: 0.8"
+                        />
+                        <stop
+                          offset="100%"
+                          style="stop-color: #4ecdc4; stop-opacity: 0.1"
+                        />
+                      </linearGradient>
+                    </defs>
+
+                    <!-- Grid lines -->
+                    <g stroke="rgba(255,255,255,0.2)" stroke-width="1">
+                      <line x1="0" y1="50" x2="600" y2="50" />
+                      <line x1="0" y1="100" x2="600" y2="100" />
+                      <line x1="0" y1="150" x2="600" y2="150" />
+                      <line x1="0" y1="200" x2="600" y2="200" />
+                    </g>
+
+                    <!-- Area fill -->
+                    <path
+                      d="M0,200 L100,180 L200,160 L300,140 L400,120 L500,100 L600,80 L600,250 L0,250 Z"
+                      fill="url(#areaFill)"
+                      opacity="0.6"
+                    />
+
+                    <!-- Main trend line -->
+                    <polyline
+                      fill="none"
+                      stroke="url(#revenueGradient)"
+                      stroke-width="4"
+                      points="0,200 100,180 200,160 300,140 400,120 500,100 600,80"
+                      style="
+                        filter: drop-shadow(0 0 8px rgba(79, 172, 254, 0.6));
+                      "
+                    >
+                      <animate
+                        attributeName="stroke-dasharray"
+                        values="0,3000;3000,0;0,3000"
+                        dur="8s"
+                        repeatCount="indefinite"
+                      />
+                    </polyline>
+
+                    <!-- Data points -->
+                    <circle cx="100" cy="180" r="6" fill="#4ecdc4">
+                      <animate
+                        attributeName="r"
+                        values="6;10;6"
+                        dur="3s"
+                        repeatCount="indefinite"
+                      />
+                    </circle>
+                    <circle cx="200" cy="160" r="6" fill="#45b7d1">
+                      <animate
+                        attributeName="r"
+                        values="6;10;6"
+                        dur="3s"
+                        repeatCount="indefinite"
+                        begin="0.5s"
+                      />
+                    </circle>
+                    <circle cx="300" cy="140" r="6" fill="#96ceb4">
+                      <animate
+                        attributeName="r"
+                        values="6;10;6"
+                        dur="3s"
+                        repeatCount="indefinite"
+                        begin="1s"
+                      />
+                    </circle>
+                    <circle cx="400" cy="120" r="6" fill="#feca57">
+                      <animate
+                        attributeName="r"
+                        values="6;10;6"
+                        dur="3s"
+                        repeatCount="indefinite"
+                        begin="1.5s"
+                      />
+                    </circle>
+                    <circle cx="500" cy="100" r="6" fill="#ff6b6b">
+                      <animate
+                        attributeName="r"
+                        values="6;10;6"
+                        dur="3s"
+                        repeatCount="indefinite"
+                        begin="2s"
+                      />
+                    </circle>
+
+                    <!-- Labels -->
+                    <text
+                      x="50"
+                      y="240"
+                      fill="white"
+                      text-anchor="middle"
+                      font-size="12"
+                    >
+                      Jan
+                    </text>
+                    <text
+                      x="150"
+                      y="240"
+                      fill="white"
+                      text-anchor="middle"
+                      font-size="12"
+                    >
+                      Feb
+                    </text>
+                    <text
+                      x="250"
+                      y="240"
+                      fill="white"
+                      text-anchor="middle"
+                      font-size="12"
+                    >
+                      Mar
+                    </text>
+                    <text
+                      x="350"
+                      y="240"
+                      fill="white"
+                      text-anchor="middle"
+                      font-size="12"
+                    >
+                      Apr
+                    </text>
+                    <text
+                      x="450"
+                      y="240"
+                      fill="white"
+                      text-anchor="middle"
+                      font-size="12"
+                    >
+                      May
+                    </text>
+                    <text
+                      x="550"
+                      y="240"
+                      fill="white"
+                      text-anchor="middle"
+                      font-size="12"
+                    >
+                      Jun
+                    </text>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Key Metrics -->
+              <div class="space-y-4">
+                <div class="bg-white bg-opacity-20 rounded-xl p-4 card-hover">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-white text-sm opacity-90"
+                      >Monthly Revenue</span
+                    >
+                    <span class="text-green-400 text-sm">↗ +12.5%</span>
+                  </div>
+                  <div class="text-2xl font-bold text-white stats-counter">
+                    ₹5.2M
+                  </div>
+                  <div
+                    class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-2"
+                  >
+                    <div
+                      class="bg-green-400 h-2 rounded-full animate-pulse"
+                      style="width: 85%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="bg-white bg-opacity-20 rounded-xl p-4 card-hover">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-white text-sm opacity-90"
+                      >Profit Margin</span
+                    >
+                    <span class="text-blue-400 text-sm">↗ +8.2%</span>
+                  </div>
+                  <div class="text-2xl font-bold text-white stats-counter">
+                    34.7%
+                  </div>
+                  <div
+                    class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-2"
+                  >
+                    <div
+                      class="bg-blue-400 h-2 rounded-full animate-pulse"
+                      style="width: 70%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="bg-white bg-opacity-20 rounded-xl p-4 card-hover">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-white text-sm opacity-90"
+                      >Customer Growth</span
+                    >
+                    <span class="text-purple-400 text-sm">↗ +15.8%</span>
+                  </div>
+                  <div class="text-2xl font-bold text-white stats-counter">
+                    2,847
+                  </div>
+                  <div
+                    class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-2"
+                  >
+                    <div
+                      class="bg-purple-400 h-2 rounded-full animate-pulse"
+                      style="width: 92%"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Charts Grid -->
+          <div class="grid lg:grid-cols-2 gap-8 mb-12">
+            <!-- Expense Breakdown Pie Chart -->
+            <div
+              class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-6 fade-in"
+            >
+              <h3 class="text-xl font-bold text-white mb-6">
+                Expense Breakdown
+              </h3>
+              <div class="relative">
+                <svg class="w-full h-64" viewBox="0 0 300 300">
+                  <defs>
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                      <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+
+                  <!-- Pie chart segments -->
+                  <g transform="translate(150,150)" filter="url(#glow)">
+                    <!-- Operations (40%) -->
+                    <path
+                      d="M 0,-80 A 80,80 0 0,1 57.28,55.77 L 0,0 Z"
+                      fill="#ff6b6b"
+                      opacity="0.9"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        values="0;360"
+                        dur="20s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+                    <!-- Marketing (25%) -->
+                    <path
+                      d="M 57.28,55.77 A 80,80 0 0,1 -20,76.54 L 0,0 Z"
+                      fill="#4ecdc4"
+                      opacity="0.9"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        values="0;360"
+                        dur="25s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+                    <!-- Technology (20%) -->
+                    <path
+                      d="M -20,76.54 A 80,80 0 0,1 -72.11,-31.17 L 0,0 Z"
+                      fill="#45b7d1"
+                      opacity="0.9"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        values="0;360"
+                        dur="30s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+                    <!-- Other (15%) -->
+                    <path
+                      d="M -72.11,-31.17 A 80,80 0 0,1 0,-80 L 0,0 Z"
+                      fill="#feca57"
+                      opacity="0.9"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        values="0;360"
+                        dur="35s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+                  </g>
+
+                  <!-- Center circle -->
+                  <circle
+                    cx="150"
+                    cy="150"
+                    r="30"
+                    fill="rgba(255,255,255,0.2)"
+                    stroke="white"
+                    stroke-width="2"
+                  />
+                  <text
+                    x="150"
+                    y="155"
+                    text-anchor="middle"
+                    fill="white"
+                    font-size="14"
+                    font-weight="bold"
+                  >
+                    Total
+                  </text>
+                </svg>
+
+                <!-- Legend -->
+                <div class="absolute top-0 right-0 space-y-2 text-sm">
+                  <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                    <span class="text-white">Operations 40%</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 bg-teal-400 rounded-full"></div>
+                    <span class="text-white">Marketing 25%</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 bg-blue-400 rounded-full"></div>
+                    <span class="text-white">Technology 20%</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                    <span class="text-white">Other 15%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cash Flow Bar Chart -->
+            <div
+              class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-6 fade-in"
+            >
+              <h3 class="text-xl font-bold text-white mb-6">
+                Monthly Cash Flow
+              </h3>
+              <div class="relative h-64">
+                <svg class="w-full h-full" viewBox="0 0 400 250">
+                  <!-- Grid lines -->
+                  <g stroke="rgba(255,255,255,0.2)" stroke-width="1">
+                    <line x1="0" y1="50" x2="400" y2="50" />
+                    <line x1="0" y1="100" x2="400" y2="100" />
+                    <line x1="0" y1="150" x2="400" y2="150" />
+                    <line x1="0" y1="200" x2="400" y2="200" />
+                  </g>
+
+                  <!-- Bars -->
+                  <g>
+                    <!-- Positive cash flow bars -->
+                    <rect
+                      x="30"
+                      y="120"
+                      width="25"
+                      height="80"
+                      fill="#4ecdc4"
+                      rx="2"
+                    >
+                      <animate
+                        attributeName="height"
+                        values="0;80;0;80"
+                        dur="4s"
+                        repeatCount="indefinite"
+                      />
+                      <animate
+                        attributeName="y"
+                        values="200;120;200;120"
+                        dur="4s"
+                        repeatCount="indefinite"
+                      />
+                    </rect>
+                    <rect
+                      x="80"
+                      y="100"
+                      width="25"
+                      height="100"
+                      fill="#45b7d1"
+                      rx="2"
+                    >
+                      <animate
+                        attributeName="height"
+                        values="0;100;0;100"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="0.5s"
+                      />
+                      <animate
+                        attributeName="y"
+                        values="200;100;200;100"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="0.5s"
+                      />
+                    </rect>
+                    <rect
+                      x="130"
+                      y="80"
+                      width="25"
+                      height="120"
+                      fill="#96ceb4"
+                      rx="2"
+                    >
+                      <animate
+                        attributeName="height"
+                        values="0;120;0;120"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="1s"
+                      />
+                      <animate
+                        attributeName="y"
+                        values="200;80;200;80"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="1s"
+                      />
+                    </rect>
+                    <rect
+                      x="180"
+                      y="90"
+                      width="25"
+                      height="110"
+                      fill="#feca57"
+                      rx="2"
+                    >
+                      <animate
+                        attributeName="height"
+                        values="0;110;0;110"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="1.5s"
+                      />
+                      <animate
+                        attributeName="y"
+                        values="200;90;200;90"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="1.5s"
+                      />
+                    </rect>
+                    <rect
+                      x="230"
+                      y="70"
+                      width="25"
+                      height="130"
+                      fill="#ff6b6b"
+                      rx="2"
+                    >
+                      <animate
+                        attributeName="height"
+                        values="0;130;0;130"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="2s"
+                      />
+                      <animate
+                        attributeName="y"
+                        values="200;70;200;70"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="2s"
+                      />
+                    </rect>
+                    <rect
+                      x="280"
+                      y="60"
+                      width="25"
+                      height="140"
+                      fill="#ff9ff3"
+                      rx="2"
+                    >
+                      <animate
+                        attributeName="height"
+                        values="0;140;0;140"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="2.5s"
+                      />
+                      <animate
+                        attributeName="y"
+                        values="200;60;200;60"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin="2.5s"
+                      />
+                    </rect>
+                  </g>
+
+                  <!-- Labels -->
+                  <text
+                    x="42"
+                    y="230"
+                    fill="white"
+                    text-anchor="middle"
+                    font-size="10"
+                  >
+                    Jan
+                  </text>
+                  <text
+                    x="92"
+                    y="230"
+                    fill="white"
+                    text-anchor="middle"
+                    font-size="10"
+                  >
+                    Feb
+                  </text>
+                  <text
+                    x="142"
+                    y="230"
+                    fill="white"
+                    text-anchor="middle"
+                    font-size="10"
+                  >
+                    Mar
+                  </text>
+                  <text
+                    x="192"
+                    y="230"
+                    fill="white"
+                    text-anchor="middle"
+                    font-size="10"
+                  >
+                    Apr
+                  </text>
+                  <text
+                    x="242"
+                    y="230"
+                    fill="white"
+                    text-anchor="middle"
+                    font-size="10"
+                  >
+                    May
+                  </text>
+                  <text
+                    x="292"
+                    y="230"
+                    fill="white"
+                    text-anchor="middle"
+                    font-size="10"
+                  >
+                    Jun
+                  </text>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Financial KPI Cards -->
+          <div class="grid md:grid-cols-4 gap-6 mb-12">
+            <div
+              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-3xl">💰</div>
+                <div class="text-green-400 text-sm font-medium">↗ +18.2%</div>
+              </div>
+              <div class="text-2xl font-bold stats-counter text-white mb-2">
+                ₹10.2B
+              </div>
+              <div class="text-white text-sm opacity-90">Total Assets</div>
+              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
+                <div
+                  class="bg-green-400 h-2 rounded-full animate-pulse"
+                  style="width: 95%"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-3xl">📊</div>
+                <div class="text-blue-400 text-sm font-medium">↗ +12.7%</div>
+              </div>
+              <div class="text-2xl font-bold stats-counter text-white mb-2">
+                28.5K
+              </div>
+              <div class="text-white text-sm opacity-90">Reports Generated</div>
+              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
+                <div
+                  class="bg-blue-400 h-2 rounded-full animate-pulse"
+                  style="width: 88%"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-3xl">⚡</div>
+                <div class="text-purple-400 text-sm font-medium">↗ +5.3%</div>
+              </div>
+              <div class="text-2xl font-bold stats-counter text-white mb-2">
+                99.9%
+              </div>
+              <div class="text-white text-sm opacity-90">System Uptime</div>
+              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
+                <div
+                  class="bg-purple-400 h-2 rounded-full animate-pulse"
+                  style="width: 99%"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-3xl">🎯</div>
+                <div class="text-yellow-400 text-sm font-medium">↗ +22.1%</div>
+              </div>
+              <div class="text-2xl font-bold stats-counter text-white mb-2">
+                847
+              </div>
+              <div class="text-white text-sm opacity-90">Active Users</div>
+              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
+                <div
+                  class="bg-yellow-400 h-2 rounded-full animate-pulse"
+                  style="width: 76%"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Report Generation Section -->
+          <div
+            class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 fade-in"
+          >
+            <h3 class="text-2xl font-bold text-white mb-6 text-center">
+              Generate Custom Reports
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div
+                class="bg-white bg-opacity-20 rounded-xl p-6 card-hover text-center"
+              >
+                <div class="text-4xl mb-4">📈</div>
+                <h4 class="text-lg font-bold text-white mb-3">
+                  Financial Performance
+                </h4>
+                <p class="text-white text-sm opacity-90 mb-4">
+                  Comprehensive P&L, balance sheet, and cash flow analysis
+                </p>
+                <button
+                  onclick="generateReport('financial')"
+                  class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all"
+                >
+                  Generate Report
+                </button>
+              </div>
+
+              <div
+                class="bg-white bg-opacity-20 rounded-xl p-6 card-hover text-center"
+              >
+                <div class="text-4xl mb-4">📊</div>
+                <h4 class="text-lg font-bold text-white mb-3">
+                  Analytics Dashboard
+                </h4>
+                <p class="text-white text-sm opacity-90 mb-4">
+                  Interactive charts with KPIs and trend analysis
+                </p>
+                <button
+                  onclick="generateReport('analytics')"
+                  class="bg-gradient-to-r from-green-500 to-teal-600 text-white px-6 py-2 rounded-lg font-medium hover:from-green-600 hover:to-teal-700 transition-all"
+                >
+                  View Dashboard
+                </button>
+              </div>
+
+              <div
+                class="bg-white bg-opacity-20 rounded-xl p-6 card-hover text-center"
+              >
+                <div class="text-4xl mb-4">📋</div>
+                <h4 class="text-lg font-bold text-white mb-3">
+                  Compliance Report
+                </h4>
+                <p class="text-white text-sm opacity-90 mb-4">
+                  Regulatory compliance and audit trail documentation
+                </p>
+                <button
+                  onclick="generateReport('compliance')"
+                  class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-2 rounded-lg font-medium hover:from-orange-600 hover:to-red-700 transition-all"
+                >
+                  Export Report
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Financial Features Section -->
       <section id="features" class="py-20 bg-white">
         <div class="container mx-auto px-4">
@@ -1328,93 +3003,6 @@
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- Financial Stats Section -->
-      <section
-        class="py-16 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 relative overflow-hidden"
-      >
-        <!-- Animated Background Elements -->
-        <div class="absolute inset-0">
-          <div class="floating-shape absolute top-10 left-10 text-4xl">💎</div>
-          <div class="floating-shape absolute top-20 right-20 text-3xl">📊</div>
-          <div class="floating-shape absolute bottom-10 left-1/4 text-2xl">
-            💰
-          </div>
-          <div class="floating-shape absolute bottom-20 right-1/3 text-3xl">
-            🚀
-          </div>
-        </div>
-
-        <div class="container mx-auto px-4 relative z-10">
-          <div class="grid md:grid-cols-4 gap-8 text-center">
-            <div
-              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
-            >
-              <div class="text-5xl font-bold stats-counter mb-3">₹10B+</div>
-              <div class="text-white font-medium">Assets Managed 💼</div>
-              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
-                <div
-                  class="bg-yellow-400 h-2 rounded-full"
-                  style="width: 95%; animation: fillBar 2s ease-in-out"
-                ></div>
-              </div>
-            </div>
-            <div
-              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
-            >
-              <div class="text-5xl font-bold stats-counter mb-3">25K+</div>
-              <div class="text-white font-medium">Financial Reports 📈</div>
-              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
-                <div
-                  class="bg-green-400 h-2 rounded-full"
-                  style="
-                    width: 88%;
-                    animation: fillBar 2s ease-in-out 0.5s both;
-                  "
-                ></div>
-              </div>
-            </div>
-            <div
-              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
-            >
-              <div class="text-5xl font-bold stats-counter mb-3">99.8%</div>
-              <div class="text-white font-medium">Accuracy Rate ✅</div>
-              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
-                <div
-                  class="bg-blue-400 h-2 rounded-full"
-                  style="width: 99%; animation: fillBar 2s ease-in-out 1s both"
-                ></div>
-              </div>
-            </div>
-            <div
-              class="fade-in bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-6 card-hover"
-            >
-              <div class="text-5xl font-bold stats-counter mb-3">24/7</div>
-              <div class="text-white font-medium">Real-time Monitoring 🔍</div>
-              <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
-                <div
-                  class="bg-purple-400 h-2 rounded-full"
-                  style="
-                    width: 100%;
-                    animation: fillBar 2s ease-in-out 1.5s both;
-                  "
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <style>
-          @keyframes fillBar {
-            from {
-              width: 0%;
-            }
-            to {
-              width: var(--target-width);
-            }
-          }
-        </style>
       </section>
 
       <!-- Integration Section -->
@@ -2018,6 +3606,233 @@
       // Create random floating emojis periodically
       setInterval(createRandomFloatingEmoji, 3000);
 
+      // Chart update functionality
+      function updateChart(period) {
+        const chart = document.getElementById("revenue-chart");
+        const buttons = document.querySelectorAll(
+          'button[onclick^="updateChart"]'
+        );
+
+        // Update button states
+        buttons.forEach((btn) => {
+          btn.classList.remove("bg-white", "bg-opacity-50");
+          btn.classList.add("bg-white", "bg-opacity-30");
+        });
+        event.target.classList.remove("bg-opacity-30");
+        event.target.classList.add("bg-opacity-50");
+
+        // Animate chart update
+        const polyline = chart.querySelector("polyline");
+        let newPoints;
+
+        switch (period) {
+          case "7d":
+            newPoints = "0,220 100,200 200,180 300,160 400,140 500,120 600,100";
+            break;
+          case "30d":
+            newPoints = "0,200 100,180 200,160 300,140 400,120 500,100 600,80";
+            break;
+          case "1y":
+            newPoints = "0,240 100,220 200,200 300,180 400,160 500,140 600,120";
+            break;
+        }
+
+        polyline.setAttribute("points", newPoints);
+
+        // Update area fill
+        const area = chart.querySelector("path");
+        const areaPath = newPoints
+          .split(" ")
+          .map((point) => {
+            const [x, y] = point.split(",");
+            return `L${x},${y}`;
+          })
+          .join(" ");
+        area.setAttribute(
+          "d",
+          `M0,${newPoints.split(" ")[0].split(",")[1]} ${areaPath.substring(
+            1
+          )} L600,250 L0,250 Z`
+        );
+      }
+
+      // Dashboard chart update functionality
+      function updateDashboardChart(period) {
+        const chart = document.getElementById("dashboard-revenue-chart");
+        const buttons = document.querySelectorAll(
+          'button[onclick^="updateDashboardChart"]'
+        );
+
+        // Update button states
+        buttons.forEach((btn) => {
+          btn.classList.remove("bg-blue-50", "text-blue-600");
+          btn.classList.add("bg-gray-100", "text-gray-600");
+        });
+        event.target.classList.remove("bg-gray-100", "text-gray-600");
+        event.target.classList.add("bg-blue-50", "text-blue-600");
+
+        // Animate chart update
+        const polyline = chart.querySelector("polyline");
+        let newPoints;
+
+        switch (period) {
+          case "7d":
+            newPoints = "0,220 100,200 200,180 300,160 400,120 500,100 600,80";
+            break;
+          case "30d":
+            newPoints = "0,200 100,180 200,160 300,140 400,120 500,100 600,80";
+            break;
+          case "1y":
+            newPoints = "0,240 100,220 200,200 300,180 400,160 500,140 600,120";
+            break;
+        }
+
+        polyline.setAttribute("points", newPoints);
+
+        // Update area fill
+        const area = chart.querySelector("path");
+        const areaPath = newPoints
+          .split(" ")
+          .map((point) => {
+            const [x, y] = point.split(",");
+            return `L${x},${y}`;
+          })
+          .join(" ");
+        area.setAttribute(
+          "d",
+          `M0,${newPoints.split(" ")[0].split(",")[1]} ${areaPath.substring(
+            1
+          )} L600,250 L0,250 Z`
+        );
+
+        // Re-animate the line
+        polyline.style.strokeDasharray = "0,3000";
+        setTimeout(() => {
+          polyline.style.strokeDasharray = "3000,0";
+        }, 100);
+      }
+
+      // Report generation functionality
+      function generateReport(type) {
+        const button = event.target;
+        const originalText = button.textContent;
+
+        // Show loading state
+        button.textContent = "Generating...";
+        button.disabled = true;
+        button.classList.add("opacity-75");
+
+        setTimeout(() => {
+          let reportData;
+          switch (type) {
+            case "financial":
+              reportData = {
+                title: "Financial Performance Report",
+                data: "Revenue: ₹5.2M (+12.5%)\nProfit: ₹1.8M (+8.2%)\nExpenses: ₹3.4M (+5.1%)\nROI: 34.7%",
+              };
+              break;
+            case "analytics":
+              reportData = {
+                title: "Analytics Dashboard",
+                data: "Active Users: 847 (+22.1%)\nConversion Rate: 3.2%\nCustomer Lifetime Value: ₹45K\nChurn Rate: 2.1%",
+              };
+              break;
+            case "compliance":
+              reportData = {
+                title: "Compliance Report",
+                data: "Audit Score: 98.5%\nCompliance Rate: 99.2%\nRisk Level: Low\nLast Audit: March 2024",
+              };
+              break;
+          }
+
+          // Create and show modal
+          showReportModal(reportData);
+
+          // Reset button
+          button.textContent = originalText;
+          button.disabled = false;
+          button.classList.remove("opacity-75");
+        }, 2000);
+      }
+
+      // Show report modal
+      function showReportModal(reportData) {
+        const modal = document.createElement("div");
+        modal.className =
+          "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        modal.innerHTML = `
+                <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 transform transition-all">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-gray-800">${reportData.title}</h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <pre class="text-sm text-gray-700 whitespace-pre-wrap">${reportData.data}</pre>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button onclick="downloadReport('${reportData.title}')" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Download PDF
+                        </button>
+                        <button onclick="this.closest('.fixed').remove()" class="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            `;
+        document.body.appendChild(modal);
+
+        // Animate modal in
+        setTimeout(() => {
+          modal.querySelector(".bg-white").style.transform = "scale(1)";
+        }, 10);
+      }
+
+      // Download report functionality
+      function downloadReport(title) {
+        const reportContent = `
+${title}
+Generated: ${new Date().toLocaleDateString()}
+
+EXECUTIVE SUMMARY
+================
+This report provides comprehensive analysis of financial performance,
+key metrics, and strategic insights for informed decision-making.
+
+KEY FINDINGS
+============
+• Revenue growth of 12.5% compared to previous period
+• Profit margins improved by 8.2%
+• Customer acquisition costs decreased by 15%
+• Overall financial health remains strong
+
+RECOMMENDATIONS
+===============
+• Continue investment in high-performing channels
+• Optimize operational efficiency
+• Expand market presence in emerging segments
+• Maintain focus on customer retention
+
+For detailed analysis and additional insights, please contact
+the finance team or schedule a consultation.
+            `;
+
+        const blob = new Blob([reportContent], { type: "text/plain" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${title.replace(/\s+/g, "_")}_${
+          new Date().toISOString().split("T")[0]
+        }.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }
+
       // Add CSS for random float animation
       const randomFloatStyle = document.createElement("style");
       randomFloatStyle.textContent = `
@@ -2037,7 +3852,7 @@
           if (b) {
             var d = b.createElement("script");
             d.innerHTML =
-              "window.__CF$cv$params={r:'9900028990d3087b',t:'MTc2MDcwNjM1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+              "window.__CF$cv$params={r:'990094d145a9c1c9',t:'MTc2MDcxMjM0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
             b.getElementsByTagName("head")[0].appendChild(d);
           }
         }
